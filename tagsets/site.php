@@ -24,9 +24,16 @@ function show_message() {
     else $message_text="";
 
     if ($message_text) {
-        echo '<BR><table class="or_message" style="border-color: '.$color['message_border'].'; background: '.$color['message_background'].'; color: '.$color['message_text'].'">
+        $is_public_area=(isset($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'],'/public/')!==false);
+        if ($is_public_area) {
+            echo '<BR><table class="or_message or_message_public">
                             <tr valign=top>
                             <td align=right><b>';
+        } else {
+            echo '<BR><table class="or_message" style="border-color: '.$color['message_border'].'; background: '.$color['message_background'].'; color: '.$color['message_text'].'">
+                            <tr valign=top>
+                            <td align=right><b>';
+        }
         echo lang('message');
         echo ':
                             </b></td>

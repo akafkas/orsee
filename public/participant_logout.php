@@ -6,8 +6,8 @@ include ("header.php");
 if ($proceed) {
     log__participant("logout",$participant['participant_id']);
     participant__logout();
-
-    redirect("public/participant_login.php?logout=true");
+    if ($settings['subject_authentication']=='token') redirect("public/?logout=true");
+    else redirect("public/participant_login.php?logout=true");
 }
 include ("footer.php");
 ?>

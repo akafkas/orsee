@@ -1,7 +1,6 @@
 <?php
 // part of orsee. see orsee.org
 ob_start();
-$suppress_html_header=true;
 
 $query=array();
 if (isset($_REQUEST['p']) && $_REQUEST['p']) $query[]='p='.urlencode($_REQUEST['p']);
@@ -12,9 +11,9 @@ if (isset($_REQUEST['reallyregister']) && $_REQUEST['reallyregister']) $query[]=
 if (isset($_REQUEST['reallycancel']) && $_REQUEST['reallycancel']) $query[]='reallycancel=true';
 if (isset($_REQUEST['betternot']) && $_REQUEST['betternot']) $query[]='betternot=true';
 
-$target='public/participant_show.php';
+$target='participant_show.php';
 if (count($query)>0) $target.='?'.implode('&',$query);
 
-include ("header.php");
-redirect($target);
+header("Location: ".$target);
+exit;
 ?>

@@ -1,31 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-or-ink: #102033;
-  --color-or-muted: #5a6a7f;
-  --color-or-line: #d6dee8;
+  --color-or-bg: #f5f4f1;
+  --color-or-bg-soft: #efede8;
+  --color-or-ink: #1c232b;
+  --color-or-ink-strong: #11161b;
+  --color-or-muted: #626d78;
+  --color-or-line: #d9d5cf;
   --color-or-surface: #ffffff;
-  --color-or-surface-soft: #f3f7fb;
-  --color-or-surface-strong: #e8f0f8;
-  --color-or-brand: #0f766e;
-  --color-or-brand-strong: #0b5b56;
-  --color-or-accent: #dc6b2f;
-  --color-or-night: #0d1b2a;
-  --shadow-or-card: 0 18px 48px rgba(16, 32, 51, 0.12);
+  --color-or-surface-soft: #f8f7f4;
+  --color-or-surface-strong: #efede8;
+  --color-or-brand: #2d3742;
+  --color-or-brand-strong: #1f2730;
+  --color-or-brand-soft: #e9edf0;
+  --color-or-focus: rgba(45, 55, 66, 0.28);
+  --color-or-success: #2f6b57;
+  --color-or-danger: #8a4b47;
+  --color-or-night: #14191f;
+  --shadow-or-card: 0 16px 38px rgba(17, 22, 27, 0.08);
   --radius-or-card: 1.5rem;
 }
 
 @layer base {
   body.orsee-public {
     background:
-      radial-gradient(circle at top left, rgba(15, 118, 110, 0.14), transparent 34%),
-      radial-gradient(circle at top right, rgba(220, 107, 47, 0.12), transparent 28%),
-      linear-gradient(180deg, #f7fafc 0%, #eef4f8 100%);
+      radial-gradient(circle at top left, rgba(45, 55, 66, 0.06), transparent 30%),
+      linear-gradient(180deg, var(--color-or-bg) 0%, var(--color-or-bg-soft) 100%);
     color: var(--color-or-ink);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   }
 
   body.orsee-public a {
+    color: var(--color-or-brand);
+    transition: color 160ms ease;
+  }
+
+  body.orsee-public a:hover {
     color: var(--color-or-brand-strong);
   }
 
@@ -51,8 +61,8 @@
     top: 0;
     z-index: 40;
     backdrop-filter: blur(18px);
-    background: rgba(247, 250, 252, 0.82);
-    border-bottom: 1px solid rgba(16, 32, 51, 0.08);
+    background: rgba(245, 244, 241, 0.88);
+    border-bottom: 1px solid rgba(28, 35, 43, 0.08);
   }
 
   body.orsee-public .or-public-header-inner,
@@ -86,7 +96,8 @@
     height: 3.25rem;
     border-radius: 1rem;
     background: linear-gradient(135deg, rgba(15, 118, 110, 0.16), rgba(13, 27, 42, 0.08));
-    box-shadow: inset 0 0 0 1px rgba(16, 32, 51, 0.06);
+    background: linear-gradient(135deg, rgba(31, 39, 48, 0.08), rgba(31, 39, 48, 0.02));
+    box-shadow: inset 0 0 0 1px rgba(28, 35, 43, 0.06);
     padding: 0.55rem;
     flex-shrink: 0;
   }
@@ -123,10 +134,10 @@
     gap: 0.4rem;
     border: 0;
     border-radius: 999px;
-    background: var(--color-or-night);
+    background: var(--color-or-brand-strong);
     color: #fff;
     padding: 0.8rem 1rem;
-    box-shadow: 0 10px 24px rgba(13, 27, 42, 0.18);
+    box-shadow: 0 10px 24px rgba(31, 39, 48, 0.12);
   }
 
   body.orsee-public .or-public-menu-toggle-line {
@@ -144,6 +155,8 @@
 
   body.orsee-public .or-public-nav {
     margin-left: auto;
+    position: relative;
+    z-index: 41;
   }
 
   body.orsee-public .or-public-nav-shell {
@@ -173,7 +186,7 @@
   body.orsee-public .or-public-nav-link:focus-visible,
   body.orsee-public .or-public-nav-link.is-active {
     color: var(--color-or-night);
-    background: rgba(16, 32, 51, 0.06);
+    background: rgba(31, 39, 48, 0.06);
   }
 
   body.orsee-public .or-public-nav-icon {
@@ -185,12 +198,20 @@
   body.orsee-public .or-public-nav-backdrop {
     position: fixed;
     inset: 0;
-    background: rgba(13, 27, 42, 0.45);
+    background: rgba(20, 25, 31, 0.2);
     z-index: 30;
+  }
+
+  body.orsee-public .or-public-nav-backdrop[hidden],
+  body.orsee-public .or-public-nav[hidden] {
+    display: none !important;
+    pointer-events: none;
   }
 
   body.orsee-public .or-public-main {
     padding: 1.5rem 0 4rem;
+    position: relative;
+    z-index: 1;
   }
 
   body.orsee-public .or-public-page-shell {
@@ -210,7 +231,7 @@
     font-size: 0.78rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-or-brand);
+    color: var(--color-or-muted);
     font-weight: 700;
   }
 
@@ -241,8 +262,8 @@
   body.orsee-public table.or_panel,
   body.orsee-public table.or_page_subtitle,
   body.orsee-public #calendarContainer {
-    background: rgba(255, 255, 255, 0.92);
-    border: 1px solid rgba(16, 32, 51, 0.08);
+    background: rgba(255, 255, 255, 0.96);
+    border: 1px solid rgba(28, 35, 43, 0.08);
     box-shadow: var(--shadow-or-card);
     border-radius: var(--radius-or-card);
   }
@@ -269,9 +290,8 @@
     height: 100%;
     padding: 1.75rem;
     border-radius: calc(var(--radius-or-card) - 0.25rem);
-    background:
-      linear-gradient(155deg, rgba(15, 118, 110, 0.94), rgba(13, 27, 42, 0.95));
-    color: #fff;
+    background: linear-gradient(180deg, rgba(31, 39, 48, 0.96), rgba(20, 25, 31, 0.98));
+    color: #f8f7f4;
   }
 
   body.orsee-public .or-public-feature-title,
@@ -292,7 +312,7 @@
     margin: 0;
     color: inherit;
     line-height: 1.65;
-    opacity: 0.88;
+    opacity: 0.82;
   }
 
   body.orsee-public .or-public-feature-actions,
@@ -316,15 +336,18 @@
     gap: 0.55rem;
     min-height: 3rem;
     padding: 0.78rem 1.1rem;
-    border: 0;
-    border-radius: 999px;
-    background: linear-gradient(135deg, var(--color-or-brand), var(--color-or-brand-strong));
+    border: 1px solid transparent;
+    border-radius: 0.95rem;
+    background: var(--color-or-brand);
     color: #fff !important;
     text-decoration: none;
     font-weight: 700;
     line-height: 1;
-    box-shadow: 0 14px 24px rgba(15, 118, 110, 0.24);
-    transition: transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    box-shadow: 0 6px 14px rgba(31, 39, 48, 0.1);
+    transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease, transform 160ms ease, box-shadow 160ms ease, opacity 160ms ease;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
   }
 
   body.orsee-public .button:hover,
@@ -332,14 +355,31 @@
   body.orsee-public input.button:hover,
   body.orsee-public a.button:hover {
     transform: translateY(-1px);
-    box-shadow: 0 18px 32px rgba(15, 118, 110, 0.28);
+    background: var(--color-or-brand-strong);
+    box-shadow: 0 10px 20px rgba(31, 39, 48, 0.12);
   }
 
   body.orsee-public .button.disabled,
   body.orsee-public .button[aria-disabled="true"] {
-    background: linear-gradient(135deg, #94a3b8, #64748b);
+    background: #aeb6be;
     box-shadow: none;
     opacity: 0.8;
+  }
+
+  body.orsee-public .button.button-secondary,
+  body.orsee-public a.button.button-secondary,
+  body.orsee-public input.button.button-secondary {
+    background: var(--color-or-surface);
+    color: var(--color-or-brand-strong) !important;
+    border-color: rgba(31, 39, 48, 0.14);
+    box-shadow: none;
+  }
+
+  body.orsee-public .button.button-secondary:hover,
+  body.orsee-public a.button.button-secondary:hover,
+  body.orsee-public input.button.button-secondary:hover {
+    background: var(--color-or-brand-soft);
+    color: var(--color-or-brand-strong) !important;
   }
 
   body.orsee-public .or-public-auth-layout,
@@ -358,7 +398,7 @@
   body.orsee-public .or-public-auth-card,
   body.orsee-public .or-public-form-card {
     background: rgba(255, 255, 255, 0.94);
-    border: 1px solid rgba(16, 32, 51, 0.08);
+    border: 1px solid rgba(28, 35, 43, 0.08);
     border-radius: var(--radius-or-card);
     box-shadow: var(--shadow-or-card);
     padding: 1.6rem;
@@ -394,8 +434,8 @@
   body.orsee-public select,
   body.orsee-public textarea {
     width: 100%;
-    border: 1px solid rgba(16, 32, 51, 0.12);
-    border-radius: 1rem;
+    border: 1px solid rgba(31, 39, 48, 0.14);
+    border-radius: 0.95rem;
     min-height: 3rem;
     padding: 0.8rem 0.95rem;
     background: #fff;
@@ -408,7 +448,7 @@
   body.orsee-public textarea:focus,
   body.orsee-public button:focus-visible,
   body.orsee-public a:focus-visible {
-    outline: 2px solid rgba(15, 118, 110, 0.45);
+    outline: 2px solid var(--color-or-focus);
     outline-offset: 2px;
   }
 
@@ -465,10 +505,19 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    border: 1px solid rgba(220, 107, 47, 0.25);
+    border: 1px solid rgba(45, 55, 66, 0.14);
     border-radius: 1rem;
     overflow: hidden;
-    box-shadow: 0 12px 30px rgba(220, 107, 47, 0.12);
+    box-shadow: 0 12px 24px rgba(17, 22, 27, 0.06);
+  }
+
+  body.orsee-public .or_message.or_message_public {
+    background: var(--color-or-surface);
+    color: var(--color-or-ink);
+  }
+
+  body.orsee-public .or_message.or_message_public td {
+    padding: 0.9rem 1rem;
   }
 
   body.orsee-public .or-public-flash {
@@ -483,9 +532,9 @@
   }
 
   body.orsee-public .or-public-site-footer {
-    border-top: 1px solid rgba(16, 32, 51, 0.08);
-    background: rgba(13, 27, 42, 0.96);
-    color: rgba(255, 255, 255, 0.76);
+    border-top: 1px solid rgba(28, 35, 43, 0.08);
+    background: rgba(20, 25, 31, 0.98);
+    color: rgba(248, 247, 244, 0.74);
   }
 
   body.orsee-public .or-public-site-footer-inner {
@@ -518,7 +567,7 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.8rem 1rem;
-    border-radius: 999px;
+    border-radius: 0.95rem;
     background: var(--color-or-surface-soft);
     text-decoration: none;
     font-weight: 600;
@@ -577,8 +626,8 @@
       margin-left: 0;
       padding: 0.9rem;
       border-radius: 1.4rem;
-      background: rgba(255, 255, 255, 0.98);
-      border: 1px solid rgba(16, 32, 51, 0.08);
+      background: rgba(255, 255, 255, 0.99);
+      border: 1px solid rgba(28, 35, 43, 0.08);
       box-shadow: var(--shadow-or-card);
     }
 
