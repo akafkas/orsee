@@ -4,6 +4,7 @@ ob_start();
 
 $menu__area="my_registrations";
 $title="experiments";
+$page_header_width_mode="wide";
 include("header.php");
 if ($proceed) {
     if (isset($_REQUEST['s']) && $_REQUEST['s']) $session_id=trim($_REQUEST['s']); else $session_id="";

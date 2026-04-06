@@ -3,6 +3,7 @@
 ob_start();
 $menu__area="privacy";
 $title="privacy_policy";
+$page_header_width_mode="content";
 include ("header.php");
 if ($proceed) {
     if ($settings['show_public_privacy_policy']!='y') redirect("public/");

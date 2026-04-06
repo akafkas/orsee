@@ -133,7 +133,7 @@
   }
 
   body.orsee-public .or-public-menu-toggle {
-    margin-left: auto;
+    margin-left: 0;
     display: none;
     align-items: center;
     justify-content: center;
@@ -179,9 +179,82 @@
   }
 
   body.orsee-public .or-public-nav {
-    margin-left: auto;
+    margin-left: 0;
     position: relative;
     z-index: 41;
+  }
+
+  body.orsee-public .or-public-language-picker {
+    position: relative;
+    margin-left: auto;
+    margin-right: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  body.orsee-public .or-public-language-picker summary {
+    list-style: none;
+  }
+
+  body.orsee-public .or-public-language-picker summary::-webkit-details-marker {
+    display: none;
+  }
+
+  body.orsee-public .or-public-language-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1rem;
+    min-height: 1rem;
+    padding: 0.15rem;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  body.orsee-public .or-public-language-trigger .languageicon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0;
+    line-height: 1;
+    width: 1rem;
+    min-width: 1rem;
+  }
+
+  body.orsee-public .or-public-language-trigger .languageicon:before {
+    padding-right: 0;
+  }
+
+  body.orsee-public .or-public-language-menu {
+    position: absolute;
+    top: calc(100% + 0.55rem);
+    right: 0;
+    display: grid;
+    gap: 0.35rem;
+    min-width: 11rem;
+    padding: 0.55rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(21, 27, 34, 0.08);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: var(--shadow-or-card);
+  }
+
+  body.orsee-public .or-public-language-menu-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.7rem 0.8rem;
+    border-radius: 0.85rem;
+    text-decoration: none;
+    color: var(--color-or-ink);
+    font-weight: 600;
+  }
+
+  body.orsee-public .or-public-language-menu-link:hover,
+  body.orsee-public .or-public-language-menu-link:focus-visible {
+    background: var(--color-or-surface-soft);
   }
 
   body.orsee-public .or-public-nav-shell {
@@ -257,6 +330,20 @@
     display: grid;
     gap: 0.45rem;
     padding-top: 0.5rem;
+    width: 100%;
+    justify-self: center;
+  }
+
+  body.orsee-public .or-public-page-header--content {
+    max-width: 860px;
+  }
+
+  body.orsee-public .or-public-page-header--auth {
+    max-width: 720px;
+  }
+
+  body.orsee-public .or-public-page-header--wide {
+    max-width: 920px;
   }
 
   body.orsee-public .or-public-page-kicker,
@@ -504,13 +591,22 @@
 
   body.orsee-public .or-content-page {
     width: min(860px, 100%);
-    justify-self: start;
+    justify-self: center;
   }
 
   body.orsee-public .or-register-shell,
   body.orsee-public .or-public-calendar-shell {
     width: min(920px, 100%);
-    justify-self: start;
+    justify-self: center;
+  }
+
+  body.orsee-public .or-public-auth-layout {
+    justify-items: center;
+  }
+
+  body.orsee-public .or-public-auth-card,
+  body.orsee-public .or-public-form-card {
+    width: min(100%, 720px);
   }
 
   body.orsee-public .or-public-form,
@@ -928,6 +1024,11 @@
       display: inline-flex;
     }
 
+    body.orsee-public .or-public-language-picker {
+      margin-left: auto;
+      margin-right: 0.75rem;
+    }
+
     body.orsee-public .or-public-nav {
       position: fixed;
       top: 5.75rem;
@@ -950,6 +1051,32 @@
     body.orsee-public .or-public-nav-shell {
       display: grid;
       gap: 0.35rem;
+    }
+
+    body.orsee-public .or-public-language-trigger {
+      width: auto;
+      min-width: 1rem;
+      justify-content: center;
+    }
+
+    body.orsee-public .or-public-language-menu {
+      position: static;
+      margin-top: 0.5rem;
+      min-width: 0;
+      width: 100%;
+      box-shadow: none;
+      border-color: rgba(255, 255, 255, 0.08);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    body.orsee-public .or-public-language-menu-link {
+      color: rgba(248, 247, 244, 0.88);
+    }
+
+    body.orsee-public .or-public-language-menu-link:hover,
+    body.orsee-public .or-public-language-menu-link:focus-visible {
+      background: rgba(255, 255, 255, 0.08);
+      color: #fff;
     }
 
     body.orsee-public .or-public-nav-link {
@@ -1039,6 +1166,12 @@
 
     body.orsee-public .or-content-page {
       width: 100%;
+    }
+
+    body.orsee-public .or-public-page-header--content,
+    body.orsee-public .or-public-page-header--auth,
+    body.orsee-public .or-public-page-header--wide {
+      max-width: 100%;
     }
   }
 }

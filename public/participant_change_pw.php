@@ -4,6 +4,7 @@ ob_start();
 
 $menu__area="my_data";
 $title="change_my_password";
+$page_header_width_mode="wide";
 include("header.php");
 
 if ($proceed) {

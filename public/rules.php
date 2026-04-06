@@ -3,6 +3,7 @@
 ob_start();
 $menu__area="rules";
 $title="rules";
+$page_header_width_mode="content";
 include ("header.php");
 if ($proceed) {
     if ($settings['show_public_rules_page']!='y') redirect("public/");

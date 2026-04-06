@@ -3,6 +3,7 @@
 ob_start();
 $menu__area="public_register";
 $title="reset_password";
+$page_header_width_mode="auth";
 include ("header.php");
 
 if ($proceed) {

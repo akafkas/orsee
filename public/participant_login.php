@@ -4,6 +4,7 @@ ob_start();
 
 $menu__area="login";
 $title="profile_login";
+$page_header_width_mode="auth";
 include("header.php");
 if ($proceed) {
     if (isset($_REQUEST['logout']) && $_REQUEST['logout']) message(lang('logout'));

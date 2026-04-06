@@ -3,6 +3,7 @@
 ob_start();
 $menu__area="calendar";
 $title="experiment_calendar";
+$page_header_width_mode="wide";
 include ("header.php");
 if ($proceed) {
     if ($settings['show_public_calendar']!='y') redirect("public/");

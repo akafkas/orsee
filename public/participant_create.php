@@ -3,6 +3,7 @@
 ob_start();
 $menu__area="public_register";
 $title="registration_form";
+$page_header_width_mode="wide";
 include ("header.php");
 
 if ($proceed) {

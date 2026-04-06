@@ -3,7 +3,6 @@
 ob_start();
 $menu__area="mainpage";
 $title="";
-$lang_icons_prepare=true;
 include "header.php";
 
 if ($proceed) {
@@ -44,26 +43,6 @@ if ($proceed) {
     echo '</div>';
     echo '</div>';
     echo '</section>';
-    if (!isset($addp)) $addp="";
-    if ($addp) $sign="&"; else $sign="?";
-    $langarray=lang__get_public_langs();
-    $lang_names=lang__get_language_names();
-    if  (count($langarray) > 1) {
-        echo '<section class="or-public-card or-public-language-card">';
-        echo '<div class="or-public-section-title">Switch language</div>';
-        echo '<div class="or-public-language-list">';
-        foreach ($langarray as $thislang) {
-            if ($thislang != lang('lang')) {
-                echo '<A class="or-public-language-link" HREF="index.php'.$addp.$sign.'language='.$thislang.'">';
-                echo '<span class="languageicon langicon-'.$thislang.'">';
-                if ($lang_names[$thislang]) echo $lang_names[$thislang]; else echo $thislang;
-                echo '</span>';
-                echo '</A>&nbsp;&nbsp;&nbsp;';
-            }
-        }
-        echo '</div>';
-        echo '</section>';
-    }
 }
 include("footer.php");
 ?>

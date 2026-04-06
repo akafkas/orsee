@@ -126,7 +126,7 @@ if (isset($jquery) && is_array($jquery)) {
 }
 
     echo '<style type="text/css">';
-    if (isset($lang_icons_prepare) && $lang_icons_prepare) {
+    if ($is_public_area || (isset($lang_icons_prepare) && $lang_icons_prepare)) {
         lang_icons_prepare();
     }
     echo '</style>';
@@ -159,7 +159,7 @@ echo '
 }
 
 function html__show_style_header($area='public',$title="") {
-    global $settings, $lang, $color, $expadmindata, $authdata, $navigation_disabled, $show_logged_in_menu, $settings__root_url;
+    global $settings, $lang, $color, $expadmindata, $authdata, $navigation_disabled, $show_logged_in_menu, $settings__root_url, $page_header_width_mode;
 
     if ($area=='public') {
         $current_user_data_box="";
@@ -169,6 +169,34 @@ function html__show_style_header($area='public',$title="") {
         $menu=html__get_public_menu();
         $home_link=$settings__root_url.'/public/';
         $menu_markup=html__build_public_menu($menu,$logged_in,$current_user_data_box);
+        $language_picker_markup="";
+        $langarray=lang__get_public_langs();
+        if (count($langarray) > 1) {
+            $lang_names=lang__get_language_names();
+            $current_lang=lang('lang');
+            $current_path=thisdoc();
+            $language_links=array();
+            foreach ($langarray as $thislang) {
+                if (!$thislang || $thislang==$current_lang) continue;
+                $query_args=$_GET;
+                $query_args['language']=$thislang;
+                $query_string=http_build_query($query_args);
+                $lang_href=$current_path;
+                if ($query_string) $lang_href.='?'.$query_string;
+                $lang_label=$lang_names[$thislang] ? $lang_names[$thislang] : $thislang;
+                $language_links[]='<a class="or-public-language-menu-link" href="'.$lang_href.'"><span class="languageicon langicon-'.$thislang.'">'.$lang_label.'</span></a>';
+            }
+            if (count($language_links) > 0) {
+                $current_lang_label=$lang_names[$current_lang] ? $lang_names[$current_lang] : $current_lang;
+                $language_picker_markup=
+                    '<details class="or-public-language-picker">'.
+                    '<summary class="or-public-language-trigger" aria-label="Change language from '.$current_lang_label.'">'.
+                    '<span class="languageicon langicon-'.$current_lang.'" aria-hidden="true"></span>'.
+                    '</summary>'.
+                    '<div class="or-public-language-menu">'.implode('',$language_links).'</div>'.
+                    '</details>';
+            }
+        }
 
         echo '<div class="or-public-site">';
         echo '<div class="or-public-nav-backdrop" id="or-public-nav-backdrop" hidden></div>';
@@ -181,6 +209,7 @@ function html__show_style_header($area='public',$title="") {
         echo '<span class="or-public-brand-name">'.$settings['default_area'].'</span>';
         echo '</span>';
         echo '</a>';
+        if ($language_picker_markup) echo $language_picker_markup;
         echo '<button type="button" class="or-public-menu-toggle" id="or-public-menu-toggle" aria-expanded="false" aria-controls="or-public-nav" aria-label="Toggle menu">';
         echo '<span class="or-public-menu-toggle-text">Menu</span>';
         echo '</button>';
@@ -193,7 +222,11 @@ function html__show_style_header($area='public',$title="") {
         echo '<div class="or-public-shell-inner">';
         echo '<div class="or-public-page-shell">';
         if ($title) {
-            echo '<header class="or-public-page-header">';
+            $page_header_mode='wide';
+            if (isset($page_header_width_mode) && in_array($page_header_width_mode,array('content','auth','wide'))) {
+                $page_header_mode=$page_header_width_mode;
+            }
+            echo '<header class="or-public-page-header or-public-page-header--'.$page_header_mode.'">';
             echo '<p class="or-public-page-kicker">Participant Portal</p>';
             echo '<h1 class="or-public-page-title">'.$title.'</h1>';
             echo '</header>';

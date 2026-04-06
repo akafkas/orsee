@@ -3,6 +3,7 @@
 ob_start();
 $menu__area="contact";
 $title="contact";
+$page_header_width_mode="content";
 include ("header.php");
 if ($proceed) {
     if ($settings['show_public_contact']!='y') redirect("public/");

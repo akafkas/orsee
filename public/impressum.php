@@ -3,6 +3,7 @@
 ob_start();
 $menu__area="impressum";
 $title="impressum";
+$page_header_width_mode="content";
 include ("header.php");
 if ($proceed) {
     if ($settings['show_public_legal_notice']!='y') redirect("public/");

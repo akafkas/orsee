@@ -4,6 +4,7 @@ ob_start();
 
 $menu__area="my_data";
 $title="edit_participant_data";
+$page_header_width_mode="wide";
 include("header.php");
 if ($proceed) {
     $form=true;
