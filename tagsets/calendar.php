@@ -65,6 +65,23 @@ function calendar__days_in_month($month, $year){
     return $month == 2 ? ($year % 4 ? 28 : ($year % 100 ? 29 : ($year % 400 ? 28 : 29))) : (($month - 1) % 7 % 2 ? 30 : 31);
 }
 
+function calendar__public_variant($item) {
+    if (!isset($item['type']) || $item['type'] != "experiment_session" || !isset($item['status'])) {
+        return "neutral";
+    }
+    if ($item['status'] == "complete") {
+        return "full";
+    }
+    if ($item['status'] == "not_enough_participants" || $item['status'] == "not_enough_reserve") {
+        return "open";
+    }
+    return "neutral";
+}
+
+function calendar__public_status_label_class($variant) {
+    return "calendar-status-label calendar-status-label-".$variant;
+}
+
 
 function calendar__get_events($admin = false, $start_time = 0, $end_time = 0, $admin_id = false, $split_events=false, $laboratory_id=false){
     $events = array();
@@ -288,9 +305,9 @@ function calendar__display_calendar($admin = false){
     echo '
     <style>
         #calendarContainer {
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
         }
         .calendarTable {
             border: 0px;
@@ -299,12 +316,12 @@ function calendar__display_calendar($admin = false){
 
         /* head of calendar */
         .calendarTable thead  {
-            background: '.$calendar_month_background.';
-            color: '.$calendar_month_font.';
+            background: #232a33;
+            color: #ffffff;
         }
         .calendarTable>thead>tr>th {
             border: 0;
-            border-bottom: 3px solid #E2E2E2;
+            border-bottom: 1px solid rgba(255,255,255,0.12);
             height: 20px;
             text-align: right;
             font-weight: 600;
@@ -325,7 +342,7 @@ function calendar__display_calendar($admin = false){
         .calendarTable>tbody>tr {
         }
         .calendarTable>tbody>tr>td {
-            border: 1px solid #C5C5C5;
+            border: 1px solid #dde2e8;
             padding: 0;
             margin: 0;
             height: 100px;
@@ -334,16 +351,18 @@ function calendar__display_calendar($admin = false){
             max-width: 30%;
             text-align: left;
             vertical-align: top;
+            background: #ffffff;
         }
         .calendarTable>tbody>tr .calendarCellRealDate{
-            border: 2px solid #C5C5C5;
+            border: 1px solid #dde2e8;
         }
         .calendarTable>tbody>tr>td .calendarCellHead {
             padding: 0;
             padding-left: 3px;
             padding-right: 10px;
             margin: 0;
-            background: '.$calendar_day_background.';
+            background: #f8fafc;
+            color: #67707d;
             text-align: right;
             height: 17px;
             font-weight: bold;
@@ -359,9 +378,11 @@ function calendar__display_calendar($admin = false){
             margin-right: 5px;
             margin-top: 3px;
             margin-bottom: 3px;
-            -moz-border-radius: 5px 20px 5px 5px;
-            -webkit-border-radius: 5px 20px 5px 5px;
-            border-radius: 5px 20px 5px 5px;
+            background: #f8fafc;
+            border: 1px solid rgba(27, 31, 38, 0.08);
+            -moz-border-radius: 12px;
+            -webkit-border-radius: 12px;
+            border-radius: 12px;
         }
         .calendarTable>tbody>tr>td .calendarCellContent .calendarCellContentTitle {
             display: block;
@@ -385,7 +406,7 @@ function calendar__display_calendar($admin = false){
 
         /* highlight today cell */
         .calendarTable>tbody>tr>td.today {
-            border: 2px solid #F00;
+            border: 2px solid #232a33;
         }
 
         .or-public-agenda {
@@ -453,47 +474,64 @@ function calendar__display_calendar($admin = false){
     $buttons2 .= '</TD></TR></TABLE><BR>';
 
     echo $buttons1;
-    echo $buttons2;
+    if ($admin) {
+        echo $buttons2;
+    } else {
+        echo '<div class="or-public-calendar-nav or-public-calendar-nav-top">'.$buttons2.'</div>';
+    }
+    $month_names=explode(",",$lang['month_names']);
 
     if (!$admin) {
-        echo '<div class="or-public-agenda">';
         $agenda_keys=array_keys($results);
         sort($agenda_keys);
-        if (count($agenda_keys)==0) {
-            echo '<div class="or-public-agenda-empty">'.lang('no_current_invitations').'</div>';
-        } else {
-            foreach ($agenda_keys as $agenda_day) {
-                $day_year=(int)substr((string)$agenda_day,0,4);
-                $day_month=(int)substr((string)$agenda_day,4,2);
-                $day_date=(int)substr((string)$agenda_day,6,2);
-                $day_unix=mktime(0,0,0,$day_month,$day_date,$day_year);
-                echo '<div class="or-public-agenda-day">';
-                echo '<div class="or-public-agenda-day-title">'.ortime__format($day_unix,'hide_time:true',lang('lang')).'</div>';
-                foreach ($results[$agenda_day] as $item) {
-                    $title=$item['title'];
-                    if ($settings['public_calendar_hide_exp_name']=='y') {
-                        $title=lang('calendar_experiment_session');
-                    }
-                    if (isset($item['title_link']) && $item['title_link']) {
-                        $title='<a href="'.$item['title_link'].'">'.$title.'</a>';
-                    }
-                    echo '<article class="or-public-agenda-card">';
-                    echo '<div class="or-public-agenda-time">'.$item['display_time'].'</div>';
-                    echo '<div class="or-public-agenda-title">'.$title.'</div>';
-                    echo '<div class="or-public-agenda-location">'.$item['location'].'</div>';
-                    if ($item['type'] == "experiment_session" && isset($statusdata[$item['status']])) {
-                        echo '<div class="or-public-agenda-status" style="color: '.$statusdata[$item['status']]['color'].';">'.$statusdata[$item['status']]['message'].'</div>';
-                    }
-                    echo '</article>';
-                }
-                echo '</div>';
+        $mobile_month_name=$month_names[(date("n", $displayfrom_lower)-1)];
+        $mobile_month_year=date("Y", $displayfrom_lower);
+        $mobile_days_rendered=0;
+        echo '<div class="or-public-calendar-mobile">';
+        echo '<h2 class="or-public-calendar-mobile-month">'.$mobile_month_name.' '.$mobile_month_year.'</h2>';
+        foreach ($agenda_keys as $agenda_day) {
+            $day_year=(int)substr((string)$agenda_day,0,4);
+            $day_month=(int)substr((string)$agenda_day,4,2);
+            if ($day_year != (int)date("Y", $displayfrom_lower) || $day_month != (int)date("n", $displayfrom_lower)) {
+                continue;
             }
+            $day_date=(int)substr((string)$agenda_day,6,2);
+            $day_unix=mktime(0,0,0,$day_month,$day_date,$day_year);
+            $mobile_days_rendered++;
+            echo '<section class="or-public-calendar-mobile-day">';
+            echo '<div class="or-public-calendar-mobile-day-title">'.ortime__format($day_unix,'hide_time:true',lang('lang')).'</div>';
+            echo '<div class="or-public-calendar-mobile-events">';
+            foreach ($results[$agenda_day] as $item) {
+                $title=$item['title'];
+                if ($settings['public_calendar_hide_exp_name']=='y') {
+                    $title=lang('calendar_experiment_session');
+                }
+                if (isset($item['title_link']) && $item['title_link']) {
+                    $title='<a href="'.$item['title_link'].'">'.$title.'</a>';
+                }
+                $mobile_variant=calendar__public_variant($item);
+                echo '<article class="or-public-calendar-mobile-session calendar-status-'.$mobile_variant.'">';
+                echo '<div class="or-public-calendar-mobile-meta">'.$item['display_time'].'</div>';
+                echo '<div class="or-public-calendar-mobile-title">'.$title.'</div>';
+                if (isset($item['location']) && $item['location']) {
+                    echo '<div class="or-public-calendar-mobile-meta">'.$item['location'].'</div>';
+                }
+                if ($item['type'] == "experiment_session" && isset($statusdata[$item['status']])) {
+                    echo '<div class="'.calendar__public_status_label_class($mobile_variant).'">'.$statusdata[$item['status']]['message'].'</div>';
+                }
+                echo '</article>';
+            }
+            echo '</div>';
+            echo '</section>';
         }
+        if ($mobile_days_rendered==0) {
+            echo '<div class="or-public-calendar-mobile-empty">No public experiment dates are scheduled this month.</div>';
+        }
+        echo '<div class="or-public-calendar-nav or-public-calendar-nav-bottom">'.$buttons2.'</div>';
         echo '</div>';
     }
 
     echo '<div class="or-public-calendar-grid">';
-    $month_names=explode(",",$lang['month_names']);
     //loop through each month
     for($itime = $displayfrom_lower; $itime <= $displayfrom_upper; $itime = date__skip_months(1, $itime)){
         $year = date("Y", $itime); $month = date("m", $itime);
@@ -536,7 +574,12 @@ function calendar__display_calendar($admin = false){
                             if(isset($item['title_link'])){
                                 $title = '<a href="' . $item['title_link'] . '">' . $title . '</a>';
                             }
-                            echo '<div style="background: ' . $item['color'] . ';" class="calendarCellContent">';
+                            $public_variant=calendar__public_variant($item);
+                            if ($admin) {
+                                echo '<div style="background: ' . $item['color'] . ';" class="calendarCellContent">';
+                            } else {
+                                echo '<div class="calendarCellContent calendar-status-'.$public_variant.'">';
+                            }
                             echo '<span style="font-weight: bold;">';
                             echo $item['display_time'];
                             echo '</span>';
@@ -562,8 +605,11 @@ function calendar__display_calendar($admin = false){
                                 echo '</span>';
 
                             }elseif($item['type'] == "experiment_session"){
-
-                                echo '<span style="color: ' . $statusdata[$item['status']]['color'] . ';">';
+                                if ($admin) {
+                                    echo '<span style="color: ' . $statusdata[$item['status']]['color'] . ';">';
+                                } else {
+                                    echo '<span class="'.calendar__public_status_label_class($public_variant).'">';
+                                }
 
                                     if($admin){
                                         echo " " . $item['participants_registered'] . " (" . $item['participants_needed']. "," . $item['participants_reserve'] . ")";
@@ -590,7 +636,9 @@ function calendar__display_calendar($admin = false){
         echo '</tbody></TABLE><br /><br /><br />';
     }
     echo '</div>';
-    echo $buttons2;
+    if ($admin) {
+        echo $buttons2;
+    }
     //echo $buttons1;
     echo '</div>';
 }

@@ -78,24 +78,24 @@ if ($proceed) {
                       '.csrf__field();
                 if ($settings['registration__require_rules_acceptance']=='y') {
                     echo '<details class="or-register-details" open>
-                                <summary class="or-register-summary" style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">'.lang('rules').'</summary>
+                                <summary class="or-register-summary">'.lang('rules').'</summary>
                                 <div class="or-register-details-content">'.content__get_content("rules").'</div>
                             </details>
                         ';
                 }
                 if ($settings['registration__require_privacy_policy_acceptance']=='y') {
                     echo '<details class="or-register-details" open>
-                                <summary class="or-register-summary" style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">'.lang('privacy_policy').'</summary>
+                                <summary class="or-register-summary">'.lang('privacy_policy').'</summary>
                                 <div class="or-register-details-content">'.content__get_content("privacy_policy").'</div>
                             </details>
                         ';
                 }
-                echo '<div class="or-register-consent" style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">
+                echo '<div class="or-register-consent">
                             '.lang('do_you_agree_rules_privacy').'
                         </div>
                         <div class="or-register-actions">
-                            <INPUT class="button" type="submit" name="accept_rules" value="'.lang('yes').'">&nbsp;&nbsp;&nbsp;
-                            <INPUT class="button" type="submit" name="notaccept_rules" value="'.lang('no').'">
+                            <INPUT class="button" type="submit" name="accept_rules" value="'.lang('yes').'">
+                            <INPUT class="button button-secondary" type="submit" name="notaccept_rules" value="'.lang('no').'">
                         </div>
                     </FORM>
                     </section>';

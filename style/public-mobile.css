@@ -1,10 +1,6 @@
 :root {
-    --or-public-content-max: 840px;
+    --or-public-content-max: 860px;
     --or-public-padding-mobile: 16px;
-    --or-public-padding-tablet: 24px;
-    --or-public-padding-desktop: 32px;
-    --or-public-font-size: 16px;
-    --or-public-line-height: 1.5;
     --or-public-tap-target-min: 44px;
 }
 
@@ -17,43 +13,24 @@ body.orsee-public img {
     height: auto;
 }
 
-body.orsee-public a.button,
-body.orsee-public input[type="submit"],
-body.orsee-public input[type="button"],
-body.orsee-public button {
-    min-height: var(--or-public-tap-target-min);
-}
-
-body.orsee-public .or-public-menu-toggle {
-    display: none;
-    min-height: var(--or-public-tap-target-min);
-    padding: 10px 14px;
-    border: 2px solid #6b7da5;
-    border-radius: 10px;
-    background: #ffffff;
-    color: #33415f;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-body.orsee-public .or-public-nav a {
-    min-height: var(--or-public-tap-target-min);
-}
-
-body.orsee-public .or-register-shell {
+body.orsee-public .or-register-shell,
+body.orsee-public .or-content-page,
+body.orsee-public table.or_formtable,
+body.orsee-public table.or_panel,
+body.orsee-public table.or_page_subtitle {
     max-width: var(--or-public-content-max);
 }
 
 body.orsee-public .or-register-subpool-link {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     min-height: var(--or-public-tap-target-min);
     padding: 10px 12px;
 }
 
 body.orsee-public .or-register-details {
-    border: 1px solid rgba(0, 0, 0, 0.15);
-    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 12px;
     margin: 12px 0;
     overflow: hidden;
 }
@@ -65,43 +42,19 @@ body.orsee-public .or-register-summary {
     list-style: none;
 }
 
-body.orsee-public .or-register-summary::-webkit-details-marker {
+body.orsee-public .or-register-summary::-webkit-details-marker,
+body.orsee-public .or-faq-summary::-webkit-details-marker {
     display: none;
 }
 
-body.orsee-public .or-register-details-content {
-    padding: 12px 14px;
-}
-
-body.orsee-public .or-register-actions .button {
-    min-height: var(--or-public-tap-target-min);
-}
-
-body.orsee-public .or-register-extra {
-    width: 100%;
-    max-width: 420px;
-}
-
-body.orsee-public .or-content-page {
-    max-width: var(--or-public-content-max);
-}
-
+body.orsee-public .or-register-details-content,
 body.orsee-public .or-content-page-body {
-    padding: 18px 20px;
-    line-height: 1.6;
+    padding: 14px 16px;
 }
 
 body.orsee-public .or-content-page-body p,
 body.orsee-public .or-content-page-body li {
-    line-height: 1.6;
-}
-
-body.orsee-public .or-content-page-body h1,
-body.orsee-public .or-content-page-body h2,
-body.orsee-public .or-content-page-body h3,
-body.orsee-public .or-content-page-body h4 {
-    line-height: 1.25;
-    margin-top: 1.1em;
+    line-height: 1.65;
 }
 
 body.orsee-public .or-content-backtop {
@@ -110,19 +63,12 @@ body.orsee-public .or-content-backtop {
     font-size: 14px;
 }
 
-body.orsee-public .or-faq-heading {
-    font-size: 28px;
-    line-height: 1.2;
-    margin-bottom: 14px;
-    font-weight: bold;
-}
-
 body.orsee-public .or-faq-item {
-    border: 1px solid rgba(0, 0, 0, 0.14);
+    border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 12px;
     margin: 10px 0;
     overflow: hidden;
-    background: #ffffff;
+    background: #fff;
 }
 
 body.orsee-public .or-faq-summary {
@@ -135,10 +81,6 @@ body.orsee-public .or-faq-summary {
     list-style: none;
 }
 
-body.orsee-public .or-faq-summary::-webkit-details-marker {
-    display: none;
-}
-
 body.orsee-public .or-faq-question {
     font-weight: bold;
     flex: 1;
@@ -146,14 +88,11 @@ body.orsee-public .or-faq-question {
 
 body.orsee-public .or-faq-meta {
     font-size: 14px;
-    opacity: 0.85;
+    opacity: 0.8;
     white-space: nowrap;
 }
 
-body.orsee-public .or-faq-answer {
-    padding: 4px 14px 12px;
-}
-
+body.orsee-public .or-faq-answer,
 body.orsee-public .or-faq-actions {
     padding: 0 14px 14px;
 }
@@ -161,46 +100,6 @@ body.orsee-public .or-faq-actions {
 body.orsee-public .or-faq-vote.disabled {
     opacity: 0.65;
     pointer-events: none;
-}
-
-body.orsee-public #calendarContainer {
-    max-width: var(--or-public-content-max);
-}
-
-body.orsee-public .or-public-agenda-day {
-    margin: 14px 0;
-}
-
-body.orsee-public .or-public-agenda-day-title {
-    font-weight: bold;
-    font-size: 18px;
-    margin-bottom: 8px;
-}
-
-body.orsee-public .or-public-agenda-card {
-    border: 1px solid rgba(0, 0, 0, 0.14);
-    border-radius: 12px;
-    padding: 10px 12px;
-    margin: 8px 0;
-    background: #fff;
-}
-
-body.orsee-public .or-public-agenda-time {
-    font-weight: bold;
-    margin-bottom: 2px;
-}
-
-body.orsee-public .or-public-agenda-title {
-    margin-bottom: 2px;
-}
-
-body.orsee-public .or-public-agenda-location {
-    opacity: 0.85;
-    margin-bottom: 2px;
-}
-
-body.orsee-public .or-public-agenda-status {
-    font-weight: bold;
 }
 
 body.orsee-public .or-session-table {
@@ -211,33 +110,17 @@ body.orsee-public .or-session-table td {
     vertical-align: top;
 }
 
-body.orsee-public table.or_formtable,
-body.orsee-public table.or_panel,
-body.orsee-public table.or_page_subtitle {
-    box-sizing: border-box;
-    width: 100% !important;
-    max-width: var(--or-public-content-max);
-}
-
 @media (max-width: 768px) {
     body.orsee-public {
-        font-size: var(--or-public-font-size);
-        line-height: var(--or-public-line-height);
+        font-size: 16px;
+        line-height: 1.5;
     }
 
     body.orsee-public td,
     body.orsee-public th,
-    body.orsee-public .menu_item,
-    body.orsee-public .menu_title,
     body.orsee-public .small {
         font-size: 16px;
-        line-height: var(--or-public-line-height);
-    }
-
-    body.orsee-public .page_title {
-        font-size: 28px;
-        line-height: 1.2;
-        padding: 12px 0 8px;
+        line-height: 1.5;
     }
 
     body.orsee-public table[width="90%"],
@@ -245,30 +128,6 @@ body.orsee-public table.or_page_subtitle {
     body.orsee-public table[width="400px"] {
         width: 100% !important;
         max-width: 100% !important;
-    }
-
-    body.orsee-public input[type="text"],
-    body.orsee-public input[type="password"],
-    body.orsee-public input[type="email"],
-    body.orsee-public input[type="tel"],
-    body.orsee-public select,
-    body.orsee-public textarea {
-        box-sizing: border-box;
-        width: 100%;
-        min-height: var(--or-public-tap-target-min);
-        font-size: 16px;
-    }
-
-    body.orsee-public .or-register-actions .button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: calc(50% - 10px);
-        margin: 4px;
-    }
-
-    body.orsee-public .or-content-page-body {
-        padding: 14px 16px;
     }
 
     body.orsee-public .or-faq-summary {
@@ -279,55 +138,6 @@ body.orsee-public table.or_page_subtitle {
 
     body.orsee-public .or-faq-meta {
         white-space: normal;
-    }
-
-    body.orsee-public .or-public-agenda {
-        display: block;
-    }
-
-    body.orsee-public .or-public-calendar-grid .calendarTable {
-        display: none;
-    }
-
-    body.orsee-public .menu_item,
-    body.orsee-public .menu_title {
-        display: block;
-        padding: 10px 8px;
-    }
-
-    body.orsee-public .or-public-menu-toggle {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        margin: 8px;
-    }
-
-    body.orsee-public .or-public-nav {
-        width: 100%;
-    }
-
-    body.orsee-public.or-public-js .or-public-nav[hidden] {
-        display: none;
-    }
-
-    body.orsee-public .or-public-nav table {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    body.orsee-public .or-public-nav td {
-        display: block;
-        width: 100% !important;
-        box-sizing: border-box;
-    }
-
-    body.orsee-public .or-public-nav td[bgcolor] {
-        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-    }
-
-    body.orsee-public .or-public-nav .menu_item,
-    body.orsee-public .or-public-nav .menu_title {
-        padding: 12px 10px;
     }
 
     body.orsee-public table.or_formtable,
@@ -343,11 +153,16 @@ body.orsee-public table.or_page_subtitle {
         padding-right: var(--or-public-padding-mobile);
     }
 
-    body.orsee-public center > table > tbody > tr > td[width="140"],
-    body.orsee-public center > table > tbody > tr > td[width="150"],
-    body.orsee-public center > table > tbody > tr > td[width="30%"],
-    body.orsee-public center > table > tbody > tr > td[width="70%"] {
-        width: auto !important;
+    body.orsee-public .or-public-agenda {
+        display: none !important;
+    }
+
+    body.orsee-public .or-public-calendar-grid {
+        display: none !important;
+    }
+
+    body.orsee-public .or-public-calendar-mobile {
+        display: grid !important;
     }
 
     body.orsee-public .or-session-table,
@@ -372,7 +187,7 @@ body.orsee-public table.or_page_subtitle {
     body.orsee-public .or-session-table .or-session-row,
     body.orsee-public .or-session-table-registered tr,
     body.orsee-public .or-session-table-history tr {
-        border: 1px solid rgba(0, 0, 0, 0.14);
+        border: 1px solid rgba(0, 0, 0, 0.12);
         border-radius: 12px;
         margin: 8px 0;
         background: #fff;
@@ -391,14 +206,5 @@ body.orsee-public table.or_page_subtitle {
         letter-spacing: 0.02em;
         opacity: 0.75;
         margin-bottom: 4px;
-    }
-
-    body.orsee-public .or-session-table .button.small,
-    body.orsee-public .or-session-table .button.disabled {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: var(--or-public-tap-target-min);
-        font-size: 14px !important;
     }
 }

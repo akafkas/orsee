@@ -182,9 +182,11 @@ function html__show_style_header($area='public',$title="") {
         echo '</span>';
         echo '</a>';
         echo '<button type="button" class="or-public-menu-toggle" id="or-public-menu-toggle" aria-expanded="false" aria-controls="or-public-nav" aria-label="Toggle menu">';
+        echo '<span class="or-public-menu-toggle-icon" aria-hidden="true">';
         echo '<span class="or-public-menu-toggle-line"></span>';
         echo '<span class="or-public-menu-toggle-line"></span>';
         echo '<span class="or-public-menu-toggle-line"></span>';
+        echo '</span>';
         echo '<span class="or-public-menu-toggle-text">Menu</span>';
         echo '</button>';
         echo '<nav id="or-public-nav" class="or-public-nav" aria-label="Primary">';
@@ -193,6 +195,7 @@ function html__show_style_header($area='public',$title="") {
         echo '</div>';
         echo '</header>';
         echo '<main id="or-public-main" class="or-public-main">';
+        echo '<div class="or-public-shell-inner">';
         echo '<div class="or-public-page-shell">';
         if ($title) {
             echo '<header class="or-public-page-header">';
@@ -260,6 +263,7 @@ function html__show_style_footer($area='public') {
     global $settings, $lang, $color, $expadmindata, $authdata, $navigation_disabled, $show_logged_in_menu;
 
     if ($area=='public') {
+        echo '</div>';
         echo '</div>';
         echo '</main>';
         echo '<footer class="or-public-site-footer">';
