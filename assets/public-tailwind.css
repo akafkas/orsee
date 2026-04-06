@@ -580,6 +580,14 @@
   body.orsee-public input.button,
   body.orsee-public input[type="submit"],
   body.orsee-public input[type="button"] {
+    display: block !important;
+    width: 100%;
+    box-sizing: border-box;
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    line-height: 1.2 !important;
     text-align: center !important;
   }
 
@@ -853,6 +861,16 @@
     line-height: 1.6;
     letter-spacing: 0 !important;
     text-transform: none !important;
+    font-variant: normal !important;
+  }
+
+  body.orsee-public .or-calendar-nav-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95em;
+    line-height: 1;
+    opacity: 0.82;
   }
 
   body.orsee-public .or-public-site-footer-mark a {

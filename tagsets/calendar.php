@@ -457,7 +457,7 @@ function calendar__display_calendar($admin = false){
         $buttons1.='</TR></TABLE>';
     }
     $buttons2 .= '<TABLE width="100%"><TR><TD colspan=2 align="left">';
-    $buttons2 .= button_link("?displayfrom=".date__skip_months(-1, $displayfrom)."&".$labid_urlstring, strtoupper(lang('previous')),'caret-square-o-up','font-size: 8pt;');
+    $buttons2 .= button_link("?displayfrom=".date__skip_months(-1, $displayfrom)."&".$labid_urlstring,'<span class="or-calendar-nav-arrow" aria-hidden="true">←</span><span>'.strtoupper(lang('previous')).'</span>','','font-size: 8pt;');
     $buttons2 .= '</TD>';
     $buttons2 .= '<TD colspan=3 align="center">';
     if (count($labs)>1 && $admin) {
@@ -470,7 +470,7 @@ function calendar__display_calendar($admin = false){
     }
     $buttons2 .= '</TD>';
     $buttons2 .= '<TD colspan=2 align="right">';
-    $buttons2 .= button_link("?displayfrom=".date__skip_months(1, $displayfrom)."&".$labid_urlstring,strtoupper(lang('next')),'caret-square-o-down','font-size: 8pt;');
+    $buttons2 .= button_link("?displayfrom=".date__skip_months(1, $displayfrom)."&".$labid_urlstring,'<span>'.strtoupper(lang('next')).'</span><span class="or-calendar-nav-arrow" aria-hidden="true">→</span>','','font-size: 8pt;');
     $buttons2 .= '</TD></TR></TABLE><BR>';
 
     echo $buttons1;
