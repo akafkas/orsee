@@ -2,27 +2,27 @@
 // part of orsee. see orsee.org
 
 class orsee_session_handler implements SessionHandlerInterface {
-    public function open(string $aSavaPath, string $aSessionName): bool {
+    public function open($aSavaPath, $aSessionName) {
         return orsee_session_open($aSavaPath,$aSessionName);
     }
 
-    public function close(): bool {
+    public function close() {
         return orsee_session_close();
     }
 
-    public function read(string $aKey): string {
+    public function read($aKey) {
         return (string)orsee_session_read($aKey);
     }
 
-    public function write(string $aKey, string $aVal): bool {
+    public function write($aKey, $aVal) {
         return orsee_session_write($aKey,$aVal);
     }
 
-    public function destroy(string $aKey): bool {
+    public function destroy($aKey) {
         return orsee_session_destroy($aKey);
     }
 
-    public function gc(int $aMaxLifeTime): int {
+    public function gc($aMaxLifeTime) {
         return orsee_session_gc($aMaxLifeTime);
     }
 }

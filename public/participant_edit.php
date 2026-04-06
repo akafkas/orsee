@@ -68,23 +68,22 @@ if ($proceed) {
 if ($proceed) {
 // form
     if ($form) {
-        echo '<CENTER>';
-        show_message();
-        echo '<TABLE class="or_formtable"><TR><TD>';
+        echo '<section class="or-public-split-layout">';
+        echo '<div class="or-public-card or-public-form-card">';
         participant__show_form($_REQUEST,lang('save'),$errors__dataform,false);
-        echo '</TD><TD align="right" valign="top">';
-        echo '<TABLE border=0>';
-        echo '<TR><TD>'.button_link('participant_show.php'.$token_string,
-                            lang('my_registrations'),'calendar-o').'</TD></TR>';
+        echo '</div>';
+        echo '<aside class="or-public-card or-public-side-actions">';
+        echo '<div class="or-public-section-title">'.lang('my_data').'</div>';
+        echo button_link('participant_show.php'.$token_string,
+                            lang('my_registrations'),'calendar-o');
         if ($settings['subject_authentication']!='token') {
-            echo '<TR><TD>'.button_link('participant_change_pw.php',
-                            lang('change_my_password'),'key').'</TD></TR>';
+            echo button_link('participant_change_pw.php',
+                            lang('change_my_password'),'key');
         }
-        echo '<TR><TD>'.button_link('participant_delete.php'.$token_string,
-                            lang('unsubscribe'),'minus-circle').'</TD></TR>';
-        echo '</TABLE>';
-        echo '</TD></TR></TABLE>';
-        echo '</CENTER>';
+        echo button_link('participant_delete.php'.$token_string,
+                            lang('unsubscribe'),'minus-circle');
+        echo '</aside>';
+        echo '</section>';
     }
 }
 include("footer.php");

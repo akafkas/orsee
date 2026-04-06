@@ -1,16 +1,14 @@
 <?php
 // part of orsee. see orsee.org
 
-echo '<BR><BR><BR>';
 if ($settings['support_mail']) {
-    echo '<center>
-        <P class="small" align=center>';
+    echo '<div class="or-public-support small">';
     echo lang('for_questions_contact_xxx');
     echo ' ';
     helpers__scramblemail($settings['support_mail']);
     echo $settings['support_mail'];
     echo '</A>';
-    echo '.<BR><BR><BR></CENTER>';
+    echo '.</div>';
 }
 
     debug_output();

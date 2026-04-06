@@ -699,9 +699,9 @@ function participant__show_form($edit,$button_title="",$errors=array(),$admin=fa
     global $lang, $settings, $color;
     $out=array(); $tout=array();
 
-    echo '<FORM action="'.thisdoc().'" method="POST">';
+    echo '<FORM action="'.thisdoc().'" method="POST" class="or-participant-form'.(($admin) ? ' is-admin' : '').'">';
     echo csrf__field();
-    echo '<table cellspacing="0" cellpadding="10em" border="0">
+    echo '<table cellspacing="0" cellpadding="10em" border="0" class="or-participant-form-layout">
             <TR><TD>';
     participant__show_inner_form($edit,$errors,$admin);
     echo '</TD></TR>
@@ -835,7 +835,7 @@ function participant__show_admin_form($edit,$button_title="",$errors=array(),$ex
     foreach ($pools as $p=>$pool) $out['is_subjectpool_'.$p]=false;
     $out['is_subjectpool_'.$subpool['subpool_id']]=true;
 
-    echo '<FORM action="'.thisdoc().'" method="POST">';
+    echo '<FORM action="'.thisdoc().'" method="POST" class="or-participant-form is-admin">';
     echo csrf__field();
 
     echo '<table border="0">';
@@ -937,14 +937,14 @@ function participant__password_form_fields($new=false,$provided=false) {
     if ($new) $out.=lang('new_password'); else $out.=lang('password');
     $out.='<br>';
     if ($provided) $out.='***'.lang('provided').'***';
-    else $out.='<input type="password" name="password" size="20" max-length="40"><br>
+    else $out.='<input type="password" name="password" size="20" max-length="40" autocomplete="new-password"><br>
                 <font class="small">'.lang('participant_password_note').'</font>';
     $out.='</td></tr>
         <tr><td>';
     if ($new) $out.=lang('repeat_new_password'); else $out.=lang('repeat_password');
     $out.='<br>';
     if ($provided) $out.='***'.lang('provided').'***';
-    else $out.='<input type="password" name="password2" size="20" max-length="40">';
+    else $out.='<input type="password" name="password2" size="20" max-length="40" autocomplete="new-password">';
     $out.='</td></tr>';
     return $out;
 }

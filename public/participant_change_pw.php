@@ -54,32 +54,27 @@ if ($proceed) {
 }
 
 if ($proceed) {
-    echo '  <center>';
-            show_message();
-
-    echo '<TABLE border=0><TR><TD align="center">';
-    echo '<form action="participant_change_pw.php" method="POST">';
+    echo '<section class="or-public-split-layout">';
+    echo '<div class="or-public-card">';
+    echo '<div class="or-public-section-title">'.lang('change_my_password').'</div>';
+    echo '<form action="participant_change_pw.php" method="POST" class="or-public-form">';
     echo csrf__field();
-    echo '<table class="or_formtable" style="width: 50%;">
-            <tr><td>'.lang('old_password').'<BR>
-                <input type="password" name="passold" size="20" max-length="30">
-            </td></tr>';
+    echo '<label class="or-public-field"><span class="or-public-label">'.lang('old_password').'</span>
+            <input type="password" name="passold" size="20" max-length="30"></label>';
+    echo '<div class="or-public-legacy-form-fragment"><table class="or_formtable or-public-form-fragment-table">';
     echo participant__password_form_fields(true,false);
-    echo '<tr><td align="center">
+    echo '</table></div>';
+    echo '<div class="or-public-form-actions">
             <input class="button" type="submit" name="submit" value="'.lang('change').'">
-            </td></tr>
-        </table>
-        </form>';
-    echo '</TD><TD align="right" valign="top">';
-    echo '<TABLE border=0>';
-    echo '<TR><TD>'.button_link('participant_edit.php',
-                            lang('edit_your_profile'),'pencil-square-o').'</TD></TR>';
-    echo '<TR><TD>'.button_link('participant_show.php',
-                            lang('my_registrations'),'calendar-o').'</TD></TR>';
-    echo '</TABLE>';
-
-    echo '</TD><TR></TABLE>';
-    echo '</center>';
+            </div>';
+    echo '</form>';
+    echo '</div>';
+    echo '<aside class="or-public-card or-public-side-actions">';
+    echo '<div class="or-public-section-title">'.lang('my_data').'</div>';
+    echo button_link('participant_edit.php', lang('edit_your_profile'),'pencil-square-o');
+    echo button_link('participant_show.php', lang('my_registrations'),'calendar-o');
+    echo '</aside>';
+    echo '</section>';
 }
 include("footer.php");
 ?>

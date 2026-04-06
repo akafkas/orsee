@@ -66,17 +66,24 @@ function include_jquery($name,$inc_css=true) {
 function html__header() {
     global $pagetitle,$settings, $color, $lang_icons_prepare;
     global $jquery;
+    $is_public_area=(isset($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'],'/public/')!==false);
 
 echo '<HTML>
 <HEAD>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 <meta http-equiv="expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <TITLE>'.$pagetitle.'</TITLE>
 <link rel="stylesheet" type="text/css" href="../style/'.$settings['style'].'/stylesheet.css">
 <link rel="stylesheet" href="../tagsets/icons.fa.css">
 <link rel="stylesheet" href="../tagsets/icons.css">
 ';
+if ($is_public_area) {
+    echo '<link rel="stylesheet" type="text/css" href="../style/public-mobile.css">';
+    echo '<link rel="stylesheet" type="text/css" href="../style/public-tailwind.css">';
+    echo '<script src="../style/public-mobile-nav.js" defer></script>';
+}
 
 
 if (thisdoc()=="admin_login.php" && (!(isset($settings['disable_admin_login_js']) && $settings['disable_admin_login_js']=='y'))) {
@@ -127,6 +134,7 @@ if (isset($jquery) && is_array($jquery)) {
 echo '
 </HEAD>
 <body';
+if ($is_public_area) echo ' class="orsee-public"';
 if (isset($color['body_text'])) echo ' text="'.$color['body_text'].'"';
 if (isset($color['body_link'])) echo ' link="'.$color['body_link'].'"';
 if (isset($color['body_vlink'])) echo ' vlink="'.$color['body_vlink'].'"';
@@ -151,7 +159,49 @@ echo '
 }
 
 function html__show_style_header($area='public',$title="") {
-    global $settings, $lang, $color, $expadmindata, $authdata, $navigation_disabled, $show_logged_in_menu;
+    global $settings, $lang, $color, $expadmindata, $authdata, $navigation_disabled, $show_logged_in_menu, $settings__root_url;
+
+    if ($area=='public') {
+        $current_user_data_box="";
+        if((isset($_SESSION['pauthdata']['user_logged_in']) && $_SESSION['pauthdata']['user_logged_in'])
+            || $show_logged_in_menu) $logged_in=true;
+        else $logged_in=false;
+        $menu=html__get_public_menu();
+        $home_link=$settings__root_url.'/public/';
+        $menu_markup=html__build_public_menu($menu,$logged_in,$current_user_data_box);
+
+        echo '<div class="or-public-site">';
+        echo '<div class="or-public-nav-backdrop" id="or-public-nav-backdrop" hidden></div>';
+        echo '<header class="or-public-header">';
+        echo '<div class="or-public-header-inner">';
+        echo '<a class="or-public-brand" href="'.$home_link.'">';
+        echo '<span class="or-public-brand-mark"><img src="../style/orsee/orsee3_sign.png" alt="ORSEE"></span>';
+        echo '<span class="or-public-brand-copy">';
+        echo '<span class="or-public-brand-kicker">Online Recruitment System</span>';
+        echo '<span class="or-public-brand-name">'.$settings['default_area'].'</span>';
+        echo '</span>';
+        echo '</a>';
+        echo '<button type="button" class="or-public-menu-toggle" id="or-public-menu-toggle" aria-expanded="false" aria-controls="or-public-nav" aria-label="Toggle menu">';
+        echo '<span class="or-public-menu-toggle-line"></span>';
+        echo '<span class="or-public-menu-toggle-line"></span>';
+        echo '<span class="or-public-menu-toggle-line"></span>';
+        echo '<span class="or-public-menu-toggle-text">Menu</span>';
+        echo '</button>';
+        echo '<nav id="or-public-nav" class="or-public-nav" aria-label="Primary">';
+        echo $menu_markup;
+        echo '</nav>';
+        echo '</div>';
+        echo '</header>';
+        echo '<main id="or-public-main" class="or-public-main">';
+        echo '<div class="or-public-page-shell">';
+        if ($title) {
+            echo '<header class="or-public-page-header">';
+            echo '<p class="or-public-page-kicker">Participant Portal</p>';
+            echo '<h1 class="or-public-page-title">'.$title.'</h1>';
+            echo '</header>';
+        }
+        return;
+    }
 
     $tpl=file_get_contents('../style/'.$settings['style'].'/html_header.php');
 
@@ -183,8 +233,15 @@ function html__show_style_header($area='public',$title="") {
             else $logged_in=false;
             $menu=html__get_public_menu();
         }
-        $tpl=str_replace("#navigation#",html__build_menu($menu,$logged_in,$current_user_data_box,'vertical'),$tpl);
-        $tpl=str_replace("#navigation_horizontal#",html__build_menu($menu,$logged_in,$current_user_data_box,'horizontal'),$tpl);
+        $vertical_menu=html__build_menu($menu,$logged_in,$current_user_data_box,'vertical');
+        $horizontal_menu=html__build_menu($menu,$logged_in,$current_user_data_box,'horizontal');
+        if ($area=='public') {
+            $toggle_button='<button type="button" class="or-public-menu-toggle" id="or-public-menu-toggle" aria-expanded="false" aria-controls="or-public-nav" aria-label="Menu">Menu</button>';
+            $vertical_menu=$toggle_button.'<div id="or-public-nav" class="or-public-nav">'.$vertical_menu.'</div>';
+            $horizontal_menu=$toggle_button.'<div id="or-public-nav" class="or-public-nav">'.$horizontal_menu.'</div>';
+        }
+        $tpl=str_replace("#navigation#",$vertical_menu,$tpl);
+        $tpl=str_replace("#navigation_horizontal#",$horizontal_menu,$tpl);
     } else {
         $tpl=str_replace("#navigation#",'',$tpl);
         $tpl=str_replace("#navigation_horizontal#",'',$tpl);
@@ -201,6 +258,22 @@ function html__show_style_header($area='public',$title="") {
 
 function html__show_style_footer($area='public') {
     global $settings, $lang, $color, $expadmindata, $authdata, $navigation_disabled, $show_logged_in_menu;
+
+    if ($area=='public') {
+        echo '</div>';
+        echo '</main>';
+        echo '<footer class="or-public-site-footer">';
+        echo '<div class="or-public-site-footer-inner">';
+        echo '<div>';
+        echo '<p class="or-public-site-footer-mark">ORSEE</p>';
+        echo '<p class="or-public-site-footer-copy">Responsive participant recruitment portal</p>';
+        echo '</div>';
+        echo '<a class="or-public-site-footer-link" href="https://www.orsee.org/" target="_blank" rel="noreferrer">orsee.org</a>';
+        echo '</div>';
+        echo '</footer>';
+        echo '</div>';
+        return;
+    }
 
     $tpl=file_get_contents('../style/'.$settings['style'].'/html_footer.php');
 
@@ -505,7 +578,7 @@ $menu[]=            array(
 }
 
 
-function html__build_menu($menu,$logged_in,$current_user_data_box,$orientation="vertical") {
+function html__prepare_menu_items($menu,$logged_in,$current_user_data_box) {
     global $settings__root_url, $color, $lang, $menu__area, $settings;
 
     $addp="";
@@ -513,8 +586,6 @@ function html__build_menu($menu,$logged_in,$current_user_data_box,$orientation="
     if (in_array($settings['subject_authentication'],array('token','migration'))) {
         if (isset($_REQUEST['p']) && !(in_array(thisdoc(),$ignore_p))) $addp="?p=".urlencode($_REQUEST['p']);
     }
-
-    $list='';
 
     $final_menu=array();
     foreach ($menu as $item) {
@@ -562,6 +633,58 @@ function html__build_menu($menu,$logged_in,$current_user_data_box,$orientation="
             $final_menu[]=$item;
         }
     }
+    return $final_menu;
+}
+
+function html__build_public_menu($menu,$logged_in,$current_user_data_box="") {
+    global $settings__root_url, $menu__area, $settings;
+
+    $items=html__prepare_menu_items($menu,$logged_in,$current_user_data_box);
+    $addp="";
+    $ignore_p=array('participant_create.php','participant_confirm.php','participant_forgot.php');
+    if (in_array($settings['subject_authentication'],array('token','migration'))) {
+        if (isset($_REQUEST['p']) && !(in_array(thisdoc(),$ignore_p))) $addp="?p=".urlencode($_REQUEST['p']);
+    }
+
+    $list='<div class="or-public-nav-shell">';
+    foreach ($items as $item) {
+        if ($item['entrytype']=='head') {
+            if ($item['menu_area']=='current_user_data_box') {
+                $list.='<div class="or-public-nav-user">'.$item['content'].'</div>';
+            } else {
+                $list.='<div class="or-public-nav-section">'.lang($item['lang_item']).'</div>';
+            }
+            continue;
+        }
+
+        if (!isset($item['link'])) $link='';
+        elseif (substr($item['link'],0,1)=='/') $link=$settings__root_url.$item['link'].$addp;
+        else $link=$item['link'];
+
+        $active=(preg_match("/^".$item['menu_area']."/i",$menu__area)) ? ' is-active' : '';
+        $list.='<a href="'.$link.'" class="or-public-nav-link'.$active.'">';
+        if (isset($item['icon']) && $item['icon']) {
+            $list.='<span class="or-public-nav-icon">'.icon($item['icon']).'</span>';
+        }
+        $list.='<span>'.lang($item['lang_item']).'</span>';
+        $list.='</a>';
+    }
+    $list.='</div>';
+    return $list;
+}
+
+function html__build_menu($menu,$logged_in,$current_user_data_box,$orientation="vertical") {
+    global $settings__root_url, $color, $lang, $menu__area, $settings;
+
+    $addp="";
+    $ignore_p=array('participant_create.php','participant_confirm.php','participant_forgot.php');
+    if (in_array($settings['subject_authentication'],array('token','migration'))) {
+        if (isset($_REQUEST['p']) && !(in_array(thisdoc(),$ignore_p))) $addp="?p=".urlencode($_REQUEST['p']);
+    }
+
+    $list='';
+    $final_menu=html__prepare_menu_items($menu,$logged_in,$current_user_data_box);
+
     if ($orientation=="vertical") {
         $list.='<TABLE border=0>';
         foreach ($final_menu as $item) {

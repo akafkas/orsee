@@ -1,0 +1,12 @@
+{
+  "scripts": {
+    "build:public-css": "npx @tailwindcss/cli -i ./assets/public-tailwind.css -o ./style/public-tailwind.css --minify",
+    "watch:public-css": "npx @tailwindcss/cli -i ./assets/public-tailwind.css -o ./style/public-tailwind.css --watch"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2"
+  }
+}

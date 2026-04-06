@@ -388,6 +388,10 @@ function calendar__display_calendar($admin = false){
             border: 2px solid #F00;
         }
 
+        .or-public-agenda {
+            display: none;
+        }
+
     </style>
     ';
 
@@ -450,6 +454,45 @@ function calendar__display_calendar($admin = false){
 
     echo $buttons1;
     echo $buttons2;
+
+    if (!$admin) {
+        echo '<div class="or-public-agenda">';
+        $agenda_keys=array_keys($results);
+        sort($agenda_keys);
+        if (count($agenda_keys)==0) {
+            echo '<div class="or-public-agenda-empty">'.lang('no_current_invitations').'</div>';
+        } else {
+            foreach ($agenda_keys as $agenda_day) {
+                $day_year=(int)substr((string)$agenda_day,0,4);
+                $day_month=(int)substr((string)$agenda_day,4,2);
+                $day_date=(int)substr((string)$agenda_day,6,2);
+                $day_unix=mktime(0,0,0,$day_month,$day_date,$day_year);
+                echo '<div class="or-public-agenda-day">';
+                echo '<div class="or-public-agenda-day-title">'.ortime__format($day_unix,'hide_time:true',lang('lang')).'</div>';
+                foreach ($results[$agenda_day] as $item) {
+                    $title=$item['title'];
+                    if ($settings['public_calendar_hide_exp_name']=='y') {
+                        $title=lang('calendar_experiment_session');
+                    }
+                    if (isset($item['title_link']) && $item['title_link']) {
+                        $title='<a href="'.$item['title_link'].'">'.$title.'</a>';
+                    }
+                    echo '<article class="or-public-agenda-card">';
+                    echo '<div class="or-public-agenda-time">'.$item['display_time'].'</div>';
+                    echo '<div class="or-public-agenda-title">'.$title.'</div>';
+                    echo '<div class="or-public-agenda-location">'.$item['location'].'</div>';
+                    if ($item['type'] == "experiment_session" && isset($statusdata[$item['status']])) {
+                        echo '<div class="or-public-agenda-status" style="color: '.$statusdata[$item['status']]['color'].';">'.$statusdata[$item['status']]['message'].'</div>';
+                    }
+                    echo '</article>';
+                }
+                echo '</div>';
+            }
+        }
+        echo '</div>';
+    }
+
+    echo '<div class="or-public-calendar-grid">';
     $month_names=explode(",",$lang['month_names']);
     //loop through each month
     for($itime = $displayfrom_lower; $itime <= $displayfrom_upper; $itime = date__skip_months(1, $itime)){
@@ -546,6 +589,7 @@ function calendar__display_calendar($admin = false){
         }
         echo '</tbody></TABLE><br /><br /><br />';
     }
+    echo '</div>';
     echo $buttons2;
     //echo $buttons1;
     echo '</div>';

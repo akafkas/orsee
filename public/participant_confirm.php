@@ -31,7 +31,6 @@ if ($proceed) {
                 WHERE participant_id= :participant_id ";
         $done=or_query($query,$pars);
 
-        echo '<center>';
         if (!$done) {
             message(lang('database_error'));
             redirect("public/");
@@ -41,9 +40,10 @@ if ($proceed) {
             $mess=lang('registration_confirmed').'<BR><BR>';
             $mess.=lang('thanks_for_registration');
             message($mess);
+            echo '<section class="or-public-card or-public-status-card">';
             show_message();
+            echo '</section>';
         }
-        echo '</center>';
     }
 }
 include("footer.php");

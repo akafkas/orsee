@@ -52,11 +52,11 @@ function expregister__list_invited_for($participant) {
 
     $now=time();
 
-    echo '<TABLE width="100%" border="0" cellspacing="0">';
+    echo '<TABLE class="or-session-table or-session-table-invited" width="100%" border="0" cellspacing="0">';
     $labs=array();
     foreach ($invited as $s) {
         if ($s['new_experiment']) {
-            echo '<TR>
+            echo '<TR class="or-session-group-head">
                     <TD colspan=3 bgcolor="'.$color['list_shade_subtitle'].'">
                         <B>'.$s['experiment_public_name'].'</B>';
             if (or_setting('allow_public_experiment_note') && isset($s['public_experiment_note']) && trim($s['public_experiment_note'])) {
@@ -64,7 +64,7 @@ function expregister__list_invited_for($participant) {
             }
             echo '</TD></TR>';
         }
-        echo '<TR><TD>&nbsp;&nbsp;&nbsp;</TD><TD bgcolor="'.$color['list_shade1'].'">';
+        echo '<TR class="or-session-row"><TD class="or-session-indent">&nbsp;&nbsp;&nbsp;</TD><TD data-label="'.lang('date_and_time').'" bgcolor="'.$color['list_shade1'].'">';
         echo '<B>'.$s['session_name'].'</B>, ';
         if (isset($preloaded_laboratories[$s['laboratory_id']])) echo $preloaded_laboratories[$s['laboratory_id']]['lab_name'];
         else echo lang('unknown_laboratory');
@@ -81,15 +81,15 @@ function expregister__list_invited_for($participant) {
             if ($token_string) echo '<INPUT type=hidden name="p" value="'.$participant['participant_id_crypt'].'">';
             echo '<INPUT type=hidden name="s" value="'.$s['session_id'].'">
                 '.csrf__field().'
-                <TD bgcolor="'.$color['list_shade1'].'">
+                <TD data-label="'.lang('register').'" bgcolor="'.$color['list_shade1'].'">
                 <INPUT class="button small" style="font-size: 8pt;" type=submit name="register" value="'.lang('register').'">
                 </TD>
                 </FORM>';
         } elseif ($s['registration_unixtime'] < $now) {
-            echo '<TD bgcolor="'.$color['list_shade1'].'">
+            echo '<TD data-label="'.lang('register').'" bgcolor="'.$color['list_shade1'].'">
                 <span class="button disabled" style="font-size: 8pt; color: '.$color['session_public_expired'].';">'.lang('expired').'</span></TD>';
         } else {
-                echo '<TD bgcolor="'.$color['list_shade1'].'">
+                echo '<TD data-label="'.lang('register').'" bgcolor="'.$color['list_shade1'].'">
                 <span class="button disabled" style="font-size: 8pt; color: '.$color['session_public_complete'].';">'.lang('complete').'</span></TD>';
         }
         echo '
@@ -136,12 +136,12 @@ function expregister__list_registered_for($participant,$reg_session_id="") {
     if (!(is_array($preloaded_laboratories) && count($preloaded_laboratories)>0))
         $preloaded_laboratories=laboratories__get_laboratories();
 
-    echo '<TABLE width="100%" border=0 cellspacing="0">';
+    echo '<TABLE class="or-session-table or-session-table-registered" width="100%" border=0 cellspacing="0">';
 
     $labs=array(); $shade=true;
 
     if (count($registered)>0) {
-        echo '<TR bgcolor="'.$color['list_shade_subtitle'].'">
+        echo '<TR class="or-session-head" bgcolor="'.$color['list_shade_subtitle'].'">
             <TD>'.lang('experiment').'</TD>
             <TD>'.lang('date_and_time').'</TD>
             <TD>'.lang('location').'</TD>';
@@ -157,17 +157,17 @@ function expregister__list_registered_for($participant,$reg_session_id="") {
         if ($s['session_id']==$reg_session_id) echo ' bgcolor="'.$color['just_registered_session_background'].'"';
         elseif ($shade) echo ' bgcolor="'.$color['list_shade1'].'"';
         else echo ' bgcolor="'.$color['list_shade2'].'"';
-        echo '><TD>'.$s['experiment_public_name'];
+        echo '><TD data-label="'.lang('experiment').'">'.$s['experiment_public_name'];
         if (or_setting('allow_public_experiment_note') && isset($s['public_experiment_note']) && trim($s['public_experiment_note'])) {
             echo '<BR><i>'.lang('note').': '.trim($s['public_experiment_note']).'</i>';
         }
         echo '</TD>
-             <TD>'.$s['session_name'];
+             <TD data-label="'.lang('date_and_time').'">'.$s['session_name'];
         if (or_setting('allow_public_session_note') && isset($s['public_session_note']) && trim($s['public_session_note'])) {
             echo '<BR><i>'.lang('note').': '.trim($s['public_session_note']).'</i>';
         }
         echo '</TD>
-             <TD>';
+             <TD data-label="'.lang('location').'">';
         if (isset($preloaded_laboratories[$s['laboratory_id']])) echo $preloaded_laboratories[$s['laboratory_id']]['lab_name'];
         else echo lang('unknown_laboratory');
         echo '</TD>';
@@ -175,7 +175,7 @@ function expregister__list_registered_for($participant,$reg_session_id="") {
             $s['cancellation_deadline']=sessions__get_cancellation_deadline($s);
             if ($s['cancellation_deadline']>time()) {
                 echo '<FORM action="participant_show.php" method="POST">
-                <TD>';
+                <TD data-label="'.lang('cancel_enrolment').'">';
                 if ($token_string) echo '<INPUT type=hidden name="p" value="'.$participant['participant_id_crypt'].'">';
                 echo '<INPUT type=hidden name="s" value="'.$s['session_id'].'">
                 '.csrf__field().'
@@ -228,10 +228,10 @@ function expregister__list_history($participant) {
     
     $history=expregister__get_history($participant['participant_id']);
 
-    echo '<TABLE width=100% border=0 cellspacing="0">';
+    echo '<TABLE class="or-session-table or-session-table-history" width=100% border=0 cellspacing="0">';
 
     if (count($history)>0) {
-        echo '<TR bgcolor="'.$color['list_shade_subtitle'].'">
+        echo '<TR class="or-session-head" bgcolor="'.$color['list_shade_subtitle'].'">
                 <TD>'.lang('experiment').'</TD>
                 <TD>'.lang('date_and_time').'</TD>
                 <TD>'.lang('location').'</TD>
@@ -252,12 +252,12 @@ function expregister__list_history($participant) {
         if ($shade) $shade=false; else $shade=true;
         if ($shade) echo ' bgcolor="'.$color['list_shade1'].'"';
         else echo ' bgcolor="'.$color['list_shade2'].'"';
-        echo '><TD>'.$s['experiment_public_name'].'</TD>
-                <TD>'.$s['session_name'].'</TD>
-                <TD>';
+        echo '><TD data-label="'.lang('experiment').'">'.$s['experiment_public_name'].'</TD>
+                <TD data-label="'.lang('date_and_time').'">'.$s['session_name'].'</TD>
+                <TD data-label="'.lang('location').'">';
         if (isset($preloaded_laboratories[$s['laboratory_id']])) echo $preloaded_laboratories[$s['laboratory_id']]['lab_name'];
         else echo lang('unknown_laboratory');
-        echo '</TD><TD>';
+        echo '</TD><TD data-label="'.lang('showup?').'">';
         if ($s['session_status']=="completed" || $s['session_status']=="balanced") {
             if ($pstatuses[$s['pstatus_id']]['noshow']) {
                 $tcolor=$color['shownup_no'];
@@ -271,13 +271,13 @@ function expregister__list_history($participant) {
         } else echo lang('three_questionmarks');
         echo '</TD>';
         if ($settings['enable_payment_module']=='y' && $settings['payments_in_part_history']=='y') {
-            echo '<TD>';
+            echo '<TD data-label="'.lang('payment_type_abbr').'">';
             if (isset($preloaded_payment_types[$s['payment_type']])) {
                 echo $preloaded_payment_types[$s['payment_type']]; 
             } else {
                 echo '-';
             }
-            echo '</TD><TD>';
+            echo '</TD><TD data-label="'.lang('payment_amount_abbr').'">';
             if ($s['payment_amt']!='') {
                 echo $s['payment_amt'];
             } else {

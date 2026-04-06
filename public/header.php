@@ -98,8 +98,7 @@ if ($proceed) {
                     $participant=orsee_db_load_array("participants",$participant_id,"participant_id");
                     // if pw exists, the send to login page
                     if ($participant['password_crypted']) {
-                        if (isset($mobile) && $mobile) redirect("public/participant_login_mob.php");
-                        else redirect("public/participant_login.php");
+                        redirect("public/participant_login.php");
                     } else {
                             // prepare password reset: generate token, save token to db and session
                             $participant['pwreset_token']=create_random_token(get_entropy($participant));
@@ -118,13 +117,11 @@ if ($proceed) {
                     }
                 } else {
                 // send to login page if no token is present
-                    if (isset($mobile) && $mobile) redirect("public/participant_login_mob.php");
-                    else redirect("public/participant_login.php");
+                    redirect("public/participant_login.php");
                 }
             } else {
                 // and if we only allow username/passsword, send to login page
-                if (isset($mobile) && $mobile) redirect("public/participant_login_mob.php");
-                else redirect("public/participant_login.php");
+                redirect("public/participant_login.php");
             }
         }
         if ($proceed) {
@@ -149,9 +146,9 @@ if ($proceed) {
     if (!isset($suppress_html_header) || !$suppress_html_header) {
         html__header();
         html__show_style_header('public',$title);
-        echo "<center>";
+        echo '<div class="or-public-flash">';
         show_message();
-        echo "</center>";
+        echo '</div>';
     }
 }
 ?>

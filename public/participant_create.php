@@ -42,13 +42,13 @@ if ($proceed) {
                 $result=or_query($query);
                 while ($line=pdo_fetch_assoc($result)) $self_descriptions[$line['content_name']]=$line[lang('lang')];
 
-                echo '<BR><BR><center>
-                        <TABLE class="or_formtable" style="width: 80%"><TR><TD align="center">
-                            <B>'.lang('please_choose_subgroup').'</B><BR><BR>';
+                echo '<section class="or-public-card or-register-shell">
+                            <div class="or-public-section-title">'.lang('please_choose_subgroup').'</div>
+                            <div class="or-public-choice-list">';
                 foreach ($all_pool_ids as $subpool_id) {
-                    echo '<A HREF="'.thisdoc().'?s='.$subpool_id.'">'.$self_descriptions[$subpool_id].'</A><BR><BR>';
+                    echo '<A class="or-register-subpool-link" HREF="'.thisdoc().'?s='.$subpool_id.'">'.$self_descriptions[$subpool_id].'</A>';
                 }
-                echo '</TD></TR></TABLE><BR><BR><BR></center>';
+                echo '</div></section>';
             }
         }
         $proceed=false;
@@ -73,44 +73,32 @@ if ($proceed) {
                 unset ($_SESSION['subpool_id']);
                 redirect ("public/");
             } else {
-                echo '<center><BR><BR>
-                      <FORM action='.thisdoc().' method="POST">
-                      '.csrf__field().'
-                      <TABLE class="or_panel" style="width: 80%">';
+                echo '<section class="or-public-card or-register-shell">
+                      <FORM action='.thisdoc().' method="POST" class="or-register-rules-form">
+                      '.csrf__field();
                 if ($settings['registration__require_rules_acceptance']=='y') {
-                    echo '<TR><TD>
-                    <TABLE width="100%" border=0 class="or_panel_title"><TR>
-                        <TD style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">
-                            '.lang('rules').'
-                        </TD>
-                    </TR></TABLE>
-                    </TD></TR>
-                        <TR><TD>'.content__get_content("rules").'</TD></TR>';
+                    echo '<details class="or-register-details" open>
+                                <summary class="or-register-summary" style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">'.lang('rules').'</summary>
+                                <div class="or-register-details-content">'.content__get_content("rules").'</div>
+                            </details>
+                        ';
                 }
                 if ($settings['registration__require_privacy_policy_acceptance']=='y') {
-                    echo '<TR><TD>
-                        <TABLE width="100%" border=0 class="or_panel_title"><TR>
-                        <TD style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">
-                            '.lang('privacy_policy').'
-                        </TD>
-                        </TR></TABLE>
-                    </TD></TR>
-                            <TR><TD>'.content__get_content("privacy_policy").'</TD></TR>';
+                    echo '<details class="or-register-details" open>
+                                <summary class="or-register-summary" style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">'.lang('privacy_policy').'</summary>
+                                <div class="or-register-details-content">'.content__get_content("privacy_policy").'</div>
+                            </details>
+                        ';
                 }
-                echo '<TR><TD>
-                        <TABLE width="100%" border=0 class="or_panel_title"><TR>
-                        <TD style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">
+                echo '<div class="or-register-consent" style="background: '.$color['panel_title_background'].'; color: '.$color['panel_title_textcolor'].'">
                             '.lang('do_you_agree_rules_privacy').'
-                        </TD>
-                        </TR></TABLE>
-                    </TD></TR>
-                        <TR><TD align=center>
+                        </div>
+                        <div class="or-register-actions">
                             <INPUT class="button" type="submit" name="accept_rules" value="'.lang('yes').'">&nbsp;&nbsp;&nbsp;
                             <INPUT class="button" type="submit" name="notaccept_rules" value="'.lang('no').'">
-                        </TD></TR>
-                    </TABLE>
+                        </div>
                     </FORM>
-                    </center>';
+                    </section>';
             }
         } else {
             $_SESSION['rules']=true;
@@ -121,7 +109,6 @@ if ($proceed) {
 }
 
 if ($proceed) {
-    echo '<center>';
     $form=true; $errors__dataform=array();
     if (isset($_REQUEST['add'])) {
         if (!csrf__validate_request_message()) {
@@ -212,9 +199,7 @@ if ($proceed) {
 
 if ($proceed) {
 
-    echo '<CENTER>
-            <TABLE class="or_formtable" style="width: auto;"><TR><TD>';
-    show_message();
+    echo '<section class="or-public-card or-register-shell">';
     $_REQUEST['subpool_id']=$_SESSION['subpool_id'];
 
     $extra=''; $pwfields=''; $captcha='';
@@ -226,15 +211,16 @@ if ($proceed) {
         }
     }
     $captcha='<TR><TD>'.lang('captcha_text').'<br><IMG src="captcha.php"><BR>
-            <INPUT type="text" name="captcha" size="8" maxlength="8" value="">
+            <INPUT type="text" name="captcha" size="8" maxlength="8" value="" autocomplete="off" autocapitalize="none" inputmode="text">
             </TD></TR>';
-    if ($pwfields || $captcha) $extra='<TABLE width="400px"><TR><TD>&nbsp;</TD></TR>'.
+    if ($pwfields || $captcha) $extra='<TABLE class="or-register-extra"><TR><TD>&nbsp;</TD></TR>'.
         $pwfields.$captcha.'</TABLE>';
     else $extra='';
     participant__show_form($_REQUEST,lang('submit'),$errors__dataform,false,$extra);
-    echo '</TD></TR></TABLE></center>';
+    echo '</section>';
 
 }
 
+echo '<script src="../style/public-registration.js"></script>';
 include("footer.php");
 ?>

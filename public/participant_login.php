@@ -34,29 +34,27 @@ if ($proceed) {
 }
 
 if ($proceed) {
-    echo '<CENTER>';
-    show_message();
-
-    echo '<BR><BR><form name="login" action="participant_login.php" method=post>
-        '.csrf__field().'
-        <table class="or_formtable">
-        <TR><TD>'.lang('email').':</TD><TD>
-        <input type="text" size="30" maxlength="100" name="email">
-        </TD></TR>
-        <TR><TD>
-        '.lang('password').':</TD><TD>
-        <input type="password" size="20" maxlength="30" name="password">
-        </TD></TR>
-        <TR><TD colspan="2" align="center">
-        <input class="button" type=submit name=login value="'.lang('login').'">
-        </TD></TR>
-        </TABLE>
-
-        <BR><BR>
-        <A HREF="participant_reset_pw.php"><FONT class="small">'.lang('forgot_your_password?').'</FONT></A>
-        ';
-
-    echo '</CENTER>';
+    echo '<section class="or-public-auth-layout">';
+    echo '<div class="or-public-auth-card">';
+    echo '<div class="or-public-section-title">'.lang('profile_login').'</div>';
+    echo '<p class="or-public-section-copy">Sign in to manage profile details, session invitations, and enrolments from any device.</p>';
+    echo '<form name="login" action="participant_login.php" method="post" class="or-public-form">';
+    echo csrf__field();
+    echo '<label class="or-public-field">';
+    echo '<span class="or-public-label">'.lang('email').'</span>';
+    echo '<input type="text" size="30" maxlength="100" name="email">';
+    echo '</label>';
+    echo '<label class="or-public-field">';
+    echo '<span class="or-public-label">'.lang('password').'</span>';
+    echo '<input type="password" size="20" maxlength="30" name="password">';
+    echo '</label>';
+    echo '<div class="or-public-form-actions">';
+    echo '<input class="button" type="submit" name="login" value="'.lang('login').'">';
+    echo '</div>';
+    echo '</form>';
+    echo '<a class="or-public-text-link" href="participant_reset_pw.php">'.lang('forgot_your_password?').'</a>';
+    echo '</div>';
+    echo '</section>';
 }
 include("footer.php");
 ?>

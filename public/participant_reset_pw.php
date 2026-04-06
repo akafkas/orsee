@@ -89,28 +89,31 @@ if ($proceed) {
 if ($proceed) {
     if (isset($_SESSION['pw_reset_token']) && $_SESSION['pw_reset_token']) {
         // show form, captcha
-        echo '  <center>';
-        show_message();
-
         if (isset($_SESSION['reset_email_address']) && $_SESSION['reset_email_address'])
             $email=$_SESSION['reset_email_address'];
         else $email='';
-        echo '<form action="participant_reset_pw.php" method="POST">';
+        echo '<section class="or-public-auth-layout">';
+        echo '<div class="or-public-auth-card">';
+        echo '<div class="or-public-section-title">'.lang('reset_password').'</div>';
+        echo '<p class="or-public-section-copy">'.lang('reset_pw_please_enter_email_and_new_password').'</p>';
+        echo '<form action="participant_reset_pw.php" method="POST" class="or-public-form">';
         echo csrf__field();
-        echo '<table class="or_formtable" style="width: 50%;">';
-        echo '<tr><td colspan="2">'.lang('reset_pw_please_enter_email_and_new_password').'</TD></TR>';
-        echo '<TR><TD>'.lang('email').'<BR>
-                <input type="text" name="reset_email" size="30" max-length="100" value="'.$email.'">
-            </td></tr>';
+        echo '<label class="or-public-field"><span class="or-public-label">'.lang('email').'</span>
+                <input type="text" name="reset_email" size="30" max-length="100" value="'.$email.'"></label>';
+        echo '<div class="or-public-legacy-form-fragment">';
+        echo '<table class="or_formtable or-public-form-fragment-table">';
         echo participant__password_form_fields(true,false);
-        echo '<TR><TD>'.lang('captcha_text').'<br><IMG src="captcha.php"><BR>
+        echo '<TR><TD>'.lang('captcha_text').'<br><IMG src="captcha.php" alt="captcha"><BR>
                 <INPUT type="text" name="captcha" size="8" maxlength="8" value="">
                 </TD></TR>';
-        echo '<tr><td align="center">
+        echo '</table>';
+        echo '</div>';
+        echo '<div class="or-public-form-actions">
             <input class="button" type="submit" name="submit" value="'.lang('change').'">
-            </td></tr>
-        </table>
-        </form>';
+            </div>';
+        echo '</form>';
+        echo '</div>';
+        echo '</section>';
     $proceed=false;
     }
 }
@@ -120,9 +123,9 @@ if ($proceed) {
         message(lang('password_changed'));
         unset($_SESSION['password_has_been_changed']);
         $proceed=false;
-        echo '<center>';
+        echo '<section class="or-public-card or-public-status-card">';
         show_message();
-        echo '</center>';
+        echo '</section>';
     }
 }
 
@@ -173,26 +176,22 @@ if ($proceed) {
 }
 
 if ($proceed) {
-    echo '  <center><BR><BR>';
-            show_message();
-
-    echo '<form action="participant_reset_pw.php" method="POST">';
+    echo '<section class="or-public-auth-layout">';
+    echo '<div class="or-public-auth-card">';
+    echo '<div class="or-public-section-title">'.lang('reset_password').'</div>';
+    echo '<p class="or-public-section-copy">'.lang('reset_pw_please_enter_your_email_address').'</p>';
+    echo '<form action="participant_reset_pw.php" method="POST" class="or-public-form">';
     echo csrf__field();
-    echo '<table class="or_formtable" style="width: 50%;">
-            <tr><td colspan="2">'.lang('reset_pw_please_enter_your_email_address').'</TD></TR>
-            <TR><TD>'.lang('email').'</TD><TD>
-                <input type="text" name="email" size="30" max-length="100">
-            </td></tr>';
-    echo '<TR><TD>'.lang('captcha_text').'</TD>
-                <TD><IMG src="captcha.php"><BR>
-                <INPUT type="text" name="captcha" size="8" maxlength="8" value="">
-                </TD></TR>';
-    echo '<tr><td align="center" colspan="2">
+    echo '<label class="or-public-field"><span class="or-public-label">'.lang('email').'</span>
+            <input type="text" name="email" size="30" max-length="100"></label>';
+    echo '<label class="or-public-field"><span class="or-public-label">'.lang('captcha_text').'</span>
+            <span class="or-public-captcha"><IMG src="captcha.php" alt="captcha"><INPUT type="text" name="captcha" size="8" maxlength="8" value=""></span></label>';
+    echo '<div class="or-public-form-actions">
             <input class="button" type="submit" name="submit" value="'.lang('submit').'">
-            </td></tr>
-        </table>
-        </form>';
-    echo '</center>';
+            </div>';
+    echo '</form>';
+    echo '</div>';
+    echo '</section>';
 
 }
 
