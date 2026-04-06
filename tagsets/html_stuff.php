@@ -203,9 +203,8 @@ function html__show_style_header($area='public',$title="") {
         echo '<header class="or-public-header">';
         echo '<div class="or-public-header-inner">';
         echo '<a class="or-public-brand" href="'.$home_link.'">';
-        echo '<span class="or-public-brand-mark"><img src="../style/orsee/orsee3_sign.png" alt="ORSEE"></span>';
+        echo '<span class="or-public-brand-mark"><img src="../style/orsee/orsee3_sign.png" alt="'.$settings['default_area'].'"></span>';
         echo '<span class="or-public-brand-copy">';
-        echo '<span class="or-public-brand-kicker">Online Recruitment System</span>';
         echo '<span class="or-public-brand-name">'.$settings['default_area'].'</span>';
         echo '</span>';
         echo '</a>';
@@ -227,7 +226,6 @@ function html__show_style_header($area='public',$title="") {
                 $page_header_mode=$page_header_width_mode;
             }
             echo '<header class="or-public-page-header or-public-page-header--'.$page_header_mode.'">';
-            echo '<p class="or-public-page-kicker">Participant Portal</p>';
             echo '<h1 class="or-public-page-title">'.$title.'</h1>';
             echo '</header>';
         }
@@ -296,11 +294,7 @@ function html__show_style_footer($area='public') {
         echo '</main>';
         echo '<footer class="or-public-site-footer">';
         echo '<div class="or-public-site-footer-inner">';
-        echo '<div>';
-        echo '<p class="or-public-site-footer-mark">ORSEE</p>';
-        echo '<p class="or-public-site-footer-copy">Responsive participant recruitment portal</p>';
-        echo '</div>';
-        echo '<a class="or-public-site-footer-link" href="https://www.orsee.org/" target="_blank" rel="noreferrer">orsee.org</a>';
+        echo '<p class="or-public-site-footer-mark">All Rights Reserved</p>';
         echo '</div>';
         echo '</footer>';
         echo '</div>';
@@ -551,7 +545,7 @@ if ($settings['subject_authentication']!='token') {
 }
     $menu[]=            array(
                             'menu_area'=>'calendar',
-                            'entrytype'=>'headlink',
+                            'entrytype'=>'link',
                             'lang_item'=>'calendar',
                             'link'=>'/public/show_calendar.php',
                             'icon'=>'',
@@ -559,8 +553,17 @@ if ($settings['subject_authentication']!='token') {
                             'show_if_logged_in'=>1
                             );
 $menu[]=            array(
+                            'menu_area'=>'faqs',
+                            'entrytype'=>'link',
+                            'lang_item'=>'faqs',
+                            'link'=>'/public/faq.php',
+                            'icon'=>'',
+                            'show_if_not_logged_in'=>1,
+                            'show_if_logged_in'=>1
+                            );
+$menu[]=            array(
                             'menu_area'=>'rules',
-                            'entrytype'=>'headlink',
+                            'entrytype'=>'link',
                             'lang_item'=>'rules',
                             'link'=>'/public/rules.php',
                             'icon'=>'',
@@ -569,24 +572,12 @@ $menu[]=            array(
                             );
 $menu[]=            array(
                             'menu_area'=>'privacy',
-                            'entrytype'=>'headlink',
+                            'entrytype'=>'link',
                             'lang_item'=>'privacy_policy',
                             'link'=>'/public/privacy.php',
                             'icon'=>'',
                             'show_if_not_logged_in'=>1,
                             'show_if_logged_in'=>1
-                            );
-$menu[]=            array(
-                            'menu_area'=>'faqs',
-                            'entrytype'=>'headlink',
-                            'lang_item'=>'faqs',
-                            'link'=>'/public/faq.php',
-                            'icon'=>'',
-                            'show_if_not_logged_in'=>1,
-                            'show_if_logged_in'=>1
-                            );
-$menu[]=            array(
-                            'entrytype'=>'space'
                             );
 $menu[]=            array(
                             'menu_area'=>'impressum',

@@ -23,7 +23,6 @@ if ($proceed) {
 
     echo '<section class="or-public-hero">';
     echo '<div class="or-public-hero-copy or-public-home-copy">';
-    echo '<p class="or-public-hero-kicker">Recruitment that feels current</p>';
     echo '<h2 class="or-public-hero-title">'.$settings['default_area'].'</h2>';
     echo '<div class="or-public-prose or-public-home-prose">'.content__get_content("mainpage_welcome").'</div>';
     echo '</div>';
@@ -31,10 +30,8 @@ if ($proceed) {
     echo '<div class="or-public-feature-card or-public-home-feature-card">';
     if ($show_login_cta) {
         echo '<h3 class="or-public-feature-title">'.lang('profile_login').'</h3>';
-        echo '<p class="or-public-feature-copy">Access invitations, registrations, profile details, and study history from one responsive portal.</p>';
     } else {
         echo '<h3 class="or-public-feature-title">'.lang('registration_form').'</h3>';
-        echo '<p class="or-public-feature-copy">This ORSEE instance uses token-based access, so public login is disabled. Start with registration or view the public study calendar.</p>';
     }
     echo '<div class="or-public-feature-actions or-public-home-actions">';
     echo '<a class="button" href="'.$primary_href.'">'.$primary_label.'</a>';
