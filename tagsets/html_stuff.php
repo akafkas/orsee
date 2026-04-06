@@ -182,11 +182,6 @@ function html__show_style_header($area='public',$title="") {
         echo '</span>';
         echo '</a>';
         echo '<button type="button" class="or-public-menu-toggle" id="or-public-menu-toggle" aria-expanded="false" aria-controls="or-public-nav" aria-label="Toggle menu">';
-        echo '<span class="or-public-menu-toggle-icon" aria-hidden="true">';
-        echo '<span class="or-public-menu-toggle-line"></span>';
-        echo '<span class="or-public-menu-toggle-line"></span>';
-        echo '<span class="or-public-menu-toggle-line"></span>';
-        echo '</span>';
         echo '<span class="or-public-menu-toggle-text">Menu</span>';
         echo '</button>';
         echo '<nav id="or-public-nav" class="or-public-nav" aria-label="Primary">';
