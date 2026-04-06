@@ -323,6 +323,49 @@
     margin-top: 0;
   }
 
+  body.orsee-public .or-public-home-prose {
+    max-width: none;
+  }
+
+  body.orsee-public .or-public-home-prose > br {
+    display: none;
+  }
+
+  body.orsee-public .or-public-home-prose table {
+    width: 100% !important;
+    max-width: 100%;
+    border-collapse: collapse;
+  }
+
+  body.orsee-public .or-public-home-prose td {
+    width: auto !important;
+    padding: 0;
+  }
+
+  body.orsee-public .or-public-home-prose p {
+    margin: 0 0 1rem;
+  }
+
+  body.orsee-public .or-public-home-prose h1,
+  body.orsee-public .or-public-home-prose h2,
+  body.orsee-public .or-public-home-prose h3,
+  body.orsee-public .or-public-home-prose h4,
+  body.orsee-public .or-public-home-prose h5,
+  body.orsee-public .or-public-home-prose h6 {
+    margin: 0 0 1.15rem;
+    color: var(--color-or-night);
+    font-size: clamp(1.3rem, 2vw, 1.6rem);
+    font-weight: 800;
+    line-height: 1.35;
+    letter-spacing: -0.02em;
+  }
+
+  body.orsee-public .or-public-home-prose a {
+    text-decoration: underline;
+    text-decoration-thickness: 1.5px;
+    text-underline-offset: 0.15em;
+  }
+
   body.orsee-public .or-public-feature-card {
     display: grid;
     gap: 1.1rem;
@@ -754,6 +797,17 @@
     display: none;
   }
 
+  body.orsee-public .or-public-home-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.8rem;
+    align-items: stretch;
+  }
+
+  body.orsee-public .or-public-home-actions .button {
+    width: 100%;
+  }
+
   body.orsee-public .or-public-calendar-shell .calendarTable {
     width: 100% !important;
     table-layout: fixed;
@@ -939,6 +993,10 @@
     body.orsee-public .or-register-actions {
       flex-direction: column;
       align-items: stretch;
+    }
+
+    body.orsee-public .or-public-home-actions {
+      grid-template-columns: 1fr;
     }
 
     body.orsee-public .button,
