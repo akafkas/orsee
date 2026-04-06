@@ -294,7 +294,9 @@ function html__show_style_footer($area='public') {
         echo '</main>';
         echo '<footer class="or-public-site-footer">';
         echo '<div class="or-public-site-footer-inner">';
-        echo '<p class="or-public-site-footer-mark">All Rights Reserved</p>';
+        if ($settings['support_mail']) {
+            echo '<p class="or-public-site-footer-mark">'.lang('for_questions_contact_xxx').' '.support_mail_link().'.</p>';
+        }
         echo '</div>';
         echo '</footer>';
         echo '</div>';

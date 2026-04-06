@@ -189,6 +189,7 @@
     margin-left: auto;
     margin-right: 0.75rem;
     flex-shrink: 0;
+    z-index: 45;
   }
 
   body.orsee-public .or-public-language-picker summary {
@@ -206,6 +207,7 @@
     min-width: 1rem;
     min-height: 1rem;
     padding: 0.15rem;
+    position: relative;
     border: 0;
     border-radius: 0;
     background: transparent;
@@ -230,7 +232,8 @@
   body.orsee-public .or-public-language-menu {
     position: absolute;
     top: calc(100% + 0.55rem);
-    right: 0;
+    left: 50%;
+    transform: translateX(-50%);
     display: grid;
     gap: 0.35rem;
     min-width: 11rem;
@@ -239,6 +242,12 @@
     border: 1px solid rgba(21, 27, 34, 0.08);
     background: rgba(255, 255, 255, 0.98);
     box-shadow: var(--shadow-or-card);
+    box-sizing: border-box;
+    white-space: nowrap;
+  }
+
+  body.orsee-public .or-public-language-picker:not([open]) .or-public-language-menu {
+    display: none;
   }
 
   body.orsee-public .or-public-language-menu-link {
@@ -376,6 +385,11 @@
     align-items: stretch;
   }
 
+  body.orsee-public .or-public-hero--single {
+    grid-template-columns: minmax(0, 920px);
+    justify-content: center;
+  }
+
   body.orsee-public .or-public-hero-copy,
   body.orsee-public .or-public-hero-panel,
   body.orsee-public .or-public-card,
@@ -397,6 +411,14 @@
   body.orsee-public .or-public-card,
   body.orsee-public #calendarContainer {
     padding: 1.4rem;
+  }
+
+  body.orsee-public .or-public-home-copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-width: 920px;
+    margin: 0 auto;
   }
 
   body.orsee-public .or-public-prose {
@@ -501,9 +523,9 @@
   body.orsee-public button:not(.or-public-menu-toggle),
   body.orsee-public input[type="submit"],
   body.orsee-public input[type="button"] {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     gap: 0.55rem;
     min-height: 3rem;
     padding: 0.78rem 1.1rem;
@@ -515,8 +537,12 @@
     background-image: none !important;
     color: #fff !important;
     text-decoration: none;
+    font-family: inherit !important;
+    font-size: 1rem !important;
     font-weight: 700;
-    line-height: 1;
+    line-height: 1 !important;
+    text-align: center !important;
+    vertical-align: middle !important;
     box-shadow: var(--shadow-or-soft) !important;
     text-shadow: none !important;
     filter: none !important;
@@ -524,6 +550,37 @@
     cursor: pointer;
     position: relative;
     z-index: 2;
+  }
+
+  body.orsee-public a.button[class*="fa-"],
+  body.orsee-public button.button[class*="fa-"],
+  body.orsee-public .button.fa,
+  body.orsee-public .button[class*=" fa-"] {
+    padding-left: 1.1rem !important;
+    padding-right: 1.1rem !important;
+  }
+
+  body.orsee-public .button::before,
+  body.orsee-public a.button::before,
+  body.orsee-public button::before {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    float: none !important;
+    width: auto !important;
+    min-width: 0 !important;
+    line-height: 1 !important;
+    align-self: center !important;
+    flex-shrink: 0;
+    margin: 0 !important;
+    padding: 0 !important;
+    vertical-align: middle !important;
+  }
+
+  body.orsee-public input.button,
+  body.orsee-public input[type="submit"],
+  body.orsee-public input[type="button"] {
+    text-align: center !important;
   }
 
   body.orsee-public .button:hover,
@@ -790,6 +847,25 @@
   }
 
   body.orsee-public .or-public-site-footer-mark {
+    color: rgba(248, 247, 244, 0.9);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1.6;
+    letter-spacing: 0 !important;
+    text-transform: none !important;
+  }
+
+  body.orsee-public .or-public-site-footer-mark a {
+    color: #fff;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  body.orsee-public .or-public-site-footer-mark a:hover {
+    text-decoration: underline;
+  }
+
+  body.orsee-public .or-public-site-footer-mark {
     font-weight: 600;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -896,14 +972,17 @@
   }
 
   body.orsee-public .or-public-home-actions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0.8rem;
-    align-items: stretch;
+    align-items: center;
+    margin-top: 0.4rem;
   }
 
   body.orsee-public .or-public-home-actions .button {
-    width: 100%;
+    width: auto;
+    min-width: 0;
   }
 
   body.orsee-public .or-public-calendar-shell .calendarTable {
@@ -1062,23 +1141,26 @@
     }
 
     body.orsee-public .or-public-language-menu {
-      position: static;
-      margin-top: 0.5rem;
-      min-width: 0;
-      width: 100%;
-      box-shadow: none;
-      border-color: rgba(255, 255, 255, 0.08);
-      background: rgba(255, 255, 255, 0.04);
+      top: calc(100% + 0.45rem);
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      min-width: 8.75rem;
+      width: max-content;
+      max-width: min(12rem, calc(100dvw - 2rem));
+      box-shadow: var(--shadow-or-card);
+      border-color: rgba(21, 27, 34, 0.08);
+      background: rgba(255, 255, 255, 0.98);
     }
 
     body.orsee-public .or-public-language-menu-link {
-      color: rgba(248, 247, 244, 0.88);
+      color: var(--color-or-ink);
     }
 
     body.orsee-public .or-public-language-menu-link:hover,
     body.orsee-public .or-public-language-menu-link:focus-visible {
-      background: rgba(255, 255, 255, 0.08);
-      color: #fff;
+      background: var(--color-or-surface-soft);
+      color: var(--color-or-night);
     }
 
     body.orsee-public .or-public-nav-link {
@@ -1125,7 +1207,9 @@
     }
 
     body.orsee-public .or-public-home-actions {
-      grid-template-columns: 1fr;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: stretch;
     }
 
     body.orsee-public .button,
@@ -1135,6 +1219,12 @@
     body.orsee-public input[type="submit"],
     body.orsee-public input[type="button"] {
       width: 100%;
+    }
+
+    body.orsee-public .or-public-home-actions .button,
+    body.orsee-public .or-public-calendar-nav .button,
+    body.orsee-public .or-public-calendar-nav a.button {
+      width: auto;
     }
 
     body.orsee-public .or-public-menu-toggle {
@@ -1159,6 +1249,38 @@
     body.orsee-public .or-public-calendar-nav-bottom {
       display: block;
       margin-top: 1rem;
+    }
+
+    body.orsee-public .or-public-calendar-nav-bottom table {
+      width: auto !important;
+      margin: 0 auto;
+      border-collapse: separate;
+      border-spacing: 0.7rem 0;
+    }
+
+    body.orsee-public .or-public-calendar-nav-bottom tr {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+    }
+
+    body.orsee-public .or-public-calendar-nav-bottom td {
+      display: block;
+      width: auto !important;
+      padding: 0 !important;
+    }
+
+    body.orsee-public .or-public-calendar-nav-bottom td[colspan="3"] {
+      display: none;
+    }
+
+    body.orsee-public .or-public-calendar-nav-bottom .button,
+    body.orsee-public .or-public-calendar-nav-bottom a.button {
+      min-width: 0;
+      width: auto !important;
+      padding-inline: 0.9rem;
+      white-space: nowrap;
     }
 
     body.orsee-public .or-public-site-footer-inner {
