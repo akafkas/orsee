@@ -36,7 +36,7 @@ if ($proceed) {
                 <div class="or-faq-answer">'.$answer.'</div>';
         if (!$already_voted) {
             $faq_items.='<div class="or-faq-actions">
-                        <a href="#" class="button fa-check-square bicongreen or-faq-vote" data-faq-id="'.$faq_id.'">'.lang('this_faq_answered_my_question').'</a>
+                        <a href="#" class="button bicongreen or-faq-vote" data-faq-id="'.$faq_id.'">'.lang('this_faq_answered_my_question').'</a>
                     </div>';
         }
         $faq_items.='</details>';

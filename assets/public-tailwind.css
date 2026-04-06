@@ -684,6 +684,39 @@
     gap: 1rem;
   }
 
+  body.orsee-public .or-faq-list,
+  body.orsee-public .or-faq-item,
+  body.orsee-public .or-faq-answer,
+  body.orsee-public .or-faq-actions {
+    box-sizing: border-box;
+    max-width: 100%;
+  }
+
+  body.orsee-public .or-faq-actions {
+    display: flex;
+    width: 100%;
+    min-width: 0;
+  }
+
+  body.orsee-public .or-faq-vote {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    margin: 0 !important;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    text-align: center !important;
+  }
+
+  body.orsee-public .or-faq-vote::before {
+    content: none !important;
+    display: none !important;
+  }
+
   body.orsee-public .or-public-field {
     display: grid;
     gap: 0.45rem;

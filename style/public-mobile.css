@@ -97,6 +97,22 @@ body.orsee-public .or-faq-actions {
     padding: 0 14px 14px;
 }
 
+body.orsee-public .or-faq-actions {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+}
+
+body.orsee-public .or-faq-vote {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    white-space: normal;
+    overflow-wrap: anywhere;
+}
+
 body.orsee-public .or-faq-vote.disabled {
     opacity: 0.65;
     pointer-events: none;
