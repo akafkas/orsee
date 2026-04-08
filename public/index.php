@@ -27,7 +27,6 @@ if ($proceed) {
 
     echo '<section class="or-public-hero or-public-hero--single">';
     echo '<div class="or-public-hero-copy or-public-home-copy">';
-    echo '<h2 class="or-public-hero-title">'.$settings['default_area'].'</h2>';
     echo '<div class="or-public-prose or-public-home-prose">'.content__get_content("mainpage_welcome").'</div>';
     echo '<div class="or-public-feature-actions or-public-home-actions">';
     echo '<a class="button" href="'.$primary_href.'">'.$primary_label.'</a>';
