@@ -158,6 +158,21 @@ echo '
 
 }
 
+function html__public_style_asset_src($settings,$asset_name) {
+    $style=(isset($settings['orsee_public_style']) && $settings['orsee_public_style']) ? $settings['orsee_public_style'] : 'orsee';
+    $style_root=dirname(__DIR__).'/style/';
+    $candidates=array($style,'orsee');
+
+    foreach ($candidates as $candidate) {
+        $fs_path=$style_root.$candidate.'/'.$asset_name;
+        if (is_file($fs_path)) {
+            return '../style/'.$candidate.'/'.$asset_name;
+        }
+    }
+
+    return '';
+}
+
 function html__show_style_header($area='public',$title="") {
     global $settings, $lang, $color, $expadmindata, $authdata, $navigation_disabled, $show_logged_in_menu, $settings__root_url, $page_header_width_mode;
 
@@ -198,15 +213,20 @@ function html__show_style_header($area='public',$title="") {
             }
         }
 
+        $public_brand_sign_src=html__public_style_asset_src($settings,'orsee3_sign.png');
+
         echo '<div class="or-public-site">';
         echo '<div class="or-public-nav-backdrop" id="or-public-nav-backdrop" hidden></div>';
         echo '<header class="or-public-header">';
         echo '<div class="or-public-header-inner">';
         echo '<a class="or-public-brand" href="'.$home_link.'">';
-        echo '<span class="or-public-brand-mark"><img src="../style/orsee/orsee3_sign.png" alt="'.$settings['default_area'].'"></span>';
-        echo '<span class="or-public-brand-copy">';
-        echo '<span class="or-public-brand-name">'.$settings['default_area'].'</span>';
-        echo '</span>';
+        if ($public_brand_sign_src) {
+            echo '<span class="or-public-brand-mark"><img src="'.$public_brand_sign_src.'" alt="'.$settings['default_area'].'"></span>';
+        } else {
+            echo '<span class="or-public-brand-copy">';
+            echo '<span class="or-public-brand-name">'.$settings['default_area'].'</span>';
+            echo '</span>';
+        }
         echo '</a>';
         if ($language_picker_markup) echo $language_picker_markup;
         echo '<button type="button" class="or-public-menu-toggle" id="or-public-menu-toggle" aria-expanded="false" aria-controls="or-public-nav" aria-label="Toggle menu">';

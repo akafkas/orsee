@@ -14,7 +14,7 @@
     }
 
     function isMobile() {
-        return window.matchMedia("(max-width: 768px)").matches;
+        return window.matchMedia("(max-width: 1024px)").matches;
     }
 
     function initPublicMenu() {
