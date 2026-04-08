@@ -21,6 +21,9 @@ if ($proceed) {
         $style=trim($_REQUEST['style']);
     } else $style="";
 
+    if (!$style && isset($settings['orsee_public_style']) && $settings['orsee_public_style'])
+        $style=$settings['orsee_public_style'];
+
     if (!$style && isset($settings['orsee_admin_style']) && $settings['orsee_admin_style'])
         $style=$settings['orsee_admin_style'];
 

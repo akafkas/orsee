@@ -140,11 +140,11 @@ echo '
 <body';
 if ($is_public_area) echo ' class="orsee-public"';
 if ($is_public_area && $public_tailwind_style_vars) echo ' style="'.$public_tailwind_style_vars.'"';
-if (isset($color['body_text'])) echo ' text="'.$color['body_text'].'"';
-if (isset($color['body_link'])) echo ' link="'.$color['body_link'].'"';
-if (isset($color['body_vlink'])) echo ' vlink="'.$color['body_vlink'].'"';
-if (isset($color['body_alink'])) echo ' alink="'.$color['body_alink'].'"';
-if (isset($color['shade_around_content'])) echo ' bgcolor="'.$color['shade_around_content'].'"';
+if (!$is_public_area && isset($color['body_text'])) echo ' text="'.$color['body_text'].'"';
+if (!$is_public_area && isset($color['body_link'])) echo ' link="'.$color['body_link'].'"';
+if (!$is_public_area && isset($color['body_vlink'])) echo ' vlink="'.$color['body_vlink'].'"';
+if (!$is_public_area && isset($color['body_alink'])) echo ' alink="'.$color['body_alink'].'"';
+if (!$is_public_area && isset($color['shade_around_content'])) echo ' bgcolor="'.$color['shade_around_content'].'"';
 echo ' TOPMARGIN=0 LEFTMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0';
 if (thisdoc()=="admin_login.php" && (!(isset($settings['disable_admin_login_js']) && $settings['disable_admin_login_js']=='y'))) {
     echo ' onload="gotoUsername();"';

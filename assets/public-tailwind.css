@@ -28,8 +28,8 @@
   body.orsee-public {
     background:
       radial-gradient(circle at top left, rgba(35, 42, 51, 0.04), transparent 34%),
-      linear-gradient(180deg, var(--color-or-bg) 0%, var(--color-or-bg-soft) 100%);
-    color: var(--color-or-ink);
+      linear-gradient(180deg, var(--or-public-page-bg, var(--color-or-bg)) 0%, var(--or-public-page-bg, var(--color-or-bg-soft)) 100%);
+    color: var(--or-public-body-text, var(--color-or-ink));
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   }
 
@@ -382,7 +382,7 @@
   body.orsee-public .or-public-hero-title {
     margin: 0;
     line-height: 1;
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
     font-weight: 800;
     letter-spacing: -0.04em;
   }
@@ -413,7 +413,7 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    background: var(--color-or-surface);
+    background: var(--or-public-content-bg, var(--color-or-surface));
     border: 1px solid rgba(27, 31, 38, 0.08);
     box-shadow: var(--shadow-or-card);
     border-radius: var(--radius-or-card);
@@ -435,7 +435,7 @@
   }
 
   body.orsee-public .or-public-prose {
-    color: var(--color-or-ink);
+    color: var(--or-public-body-text, var(--color-or-ink));
     line-height: 1.68;
     font-size: 1rem;
     max-width: 68ch;
@@ -475,7 +475,7 @@
   body.orsee-public .or-public-home-prose h5,
   body.orsee-public .or-public-home-prose h6 {
     margin: 0 0 1.15rem;
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
     font-size: clamp(1.3rem, 2vw, 1.6rem);
     font-weight: 800;
     line-height: 1.35;
@@ -494,8 +494,8 @@
     height: 100%;
     padding: 1.45rem;
     border-radius: calc(var(--radius-or-card) - 0.25rem);
-    background: var(--color-or-surface);
-    color: var(--color-or-ink);
+    background: var(--or-public-content-bg, var(--color-or-surface));
+    color: var(--or-public-body-text, var(--color-or-ink));
     border: 1px solid rgba(27, 31, 38, 0.08);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
   }
@@ -505,11 +505,11 @@
     margin: 0;
     font-size: 1.1rem;
     font-weight: 700;
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
   }
 
   body.orsee-public .or-public-feature-title {
-    color: var(--color-or-ink-strong);
+    color: var(--or-public-page-title, var(--color-or-ink-strong));
     font-size: 1.05rem;
   }
 
@@ -658,7 +658,7 @@
 
   body.orsee-public .or-public-auth-card,
   body.orsee-public .or-public-form-card {
-    background: var(--color-or-surface);
+    background: var(--or-public-content-bg, var(--color-or-surface));
     border: 1px solid rgba(28, 35, 43, 0.08);
     border-radius: var(--radius-or-card);
     box-shadow: var(--shadow-or-card);
@@ -738,7 +738,7 @@
   body.orsee-public .or-public-label {
     font-size: 0.92rem;
     font-weight: 700;
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
   }
 
   body.orsee-public input[type="text"],
@@ -752,8 +752,8 @@
     border-radius: 0.95rem;
     min-height: 3rem;
     padding: 0.8rem 0.95rem;
-    background: #fff;
-    color: var(--color-or-ink);
+    background: var(--or-public-content-bg, #fff);
+    color: var(--or-public-body-text, var(--color-or-ink));
     box-sizing: border-box;
   }
 
@@ -826,8 +826,8 @@
   }
 
   body.orsee-public .or_message.or_message_public {
-    background: var(--color-or-surface);
-    color: var(--color-or-ink);
+    background: var(--or-public-content-bg, var(--color-or-surface));
+    color: var(--or-public-body-text, var(--color-or-ink));
   }
 
   body.orsee-public .or_message.or_message_public td {
@@ -854,12 +854,12 @@
     border: 1px solid rgba(27, 31, 38, 0.08);
     border-radius: 1.1rem;
     overflow: hidden;
-    background: var(--color-or-surface);
+    background: var(--or-public-content-bg, var(--color-or-surface));
   }
 
   body.orsee-public .or-register-summary {
     background: var(--color-or-surface-soft);
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
     padding: 0.95rem 1rem;
     font-weight: 700;
     list-style: none;
@@ -867,7 +867,7 @@
 
   body.orsee-public .or-register-details-content {
     padding: 1rem 1.1rem;
-    color: var(--color-or-ink);
+    color: var(--or-public-body-text, var(--color-or-ink));
   }
 
   body.orsee-public .or-register-consent {
@@ -875,7 +875,7 @@
     border-radius: 1rem;
     border: 1px solid rgba(27, 31, 38, 0.08);
     background: var(--color-or-surface-soft);
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
     font-weight: 700;
   }
 
