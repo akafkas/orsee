@@ -378,7 +378,13 @@
     font-weight: 700;
   }
 
-  body.orsee-public .or-public-page-title,
+  body.orsee-public .or-public-page-title {
+    margin: 0;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+  }
+
   body.orsee-public .or-public-hero-title {
     margin: 0;
     line-height: 1;
@@ -972,7 +978,7 @@
     margin: 0 0 1rem;
     font-size: 1.05rem;
     font-weight: 800;
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
   }
 
   body.orsee-public .or-public-calendar-mobile-empty {
@@ -1098,7 +1104,7 @@
   body.orsee-public .or-public-calendar-mobile-title {
     font-size: 0.9rem;
     font-weight: 700;
-    color: var(--color-or-night);
+    color: var(--or-public-page-title, var(--color-or-night));
   }
 
   body.orsee-public .calendar-status-open {
@@ -1364,4 +1370,8 @@
       max-width: 100%;
     }
   }
+}
+
+body.orsee-public .or-public-page-title {
+  color: var(--or-public-page-header-title, var(--or-public-page-title, var(--color-or-night)));
 }

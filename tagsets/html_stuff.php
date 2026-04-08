@@ -186,6 +186,7 @@ function html__get_public_tailwind_style_vars($settings) {
         'public_tailwind_header_text' => '--or-public-header-text',
         'public_tailwind_page_background' => '--or-public-page-bg',
         'public_tailwind_page_title' => '--or-public-page-title',
+        'public_tailwind_page_header_title' => '--or-public-page-header-title',
         'public_tailwind_body_text' => '--or-public-body-text',
         'public_tailwind_content_background' => '--or-public-content-bg',
         'public_tailwind_primary_button_background' => '--or-public-button-primary-bg',

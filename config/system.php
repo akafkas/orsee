@@ -1529,7 +1529,13 @@ $system__colors[]=array(
 
 $system__colors[]=array(
 'color_name'=>'public_tailwind_page_title',
-'option_text'=>'Page title color',
+'option_text'=>'Section title color',
+'default_value'=>'#101419'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_page_header_title',
+'option_text'=>'Main page title color',
 'default_value'=>'#101419'
 );
 

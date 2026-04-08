@@ -44,7 +44,6 @@ if ($proceed) {
 
     echo '<section class="or-public-card or-content-page">';
     echo '<div class="or-content-page-body">';
-    echo '<div class="or-faq-heading">'.lang('faq_long').'</div>';
     echo '<div class="or-faq-list">'.$faq_items.'</div>';
     echo '</div>';
     echo '</section>';
