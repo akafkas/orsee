@@ -67,6 +67,10 @@ function html__header() {
     global $pagetitle,$settings, $color, $lang_icons_prepare;
     global $jquery;
     $is_public_area=(isset($_SERVER['SCRIPT_NAME']) && strpos($_SERVER['SCRIPT_NAME'],'/public/')!==false);
+    $public_tailwind_style_vars="";
+    if ($is_public_area) {
+        $public_tailwind_style_vars=html__get_public_tailwind_style_vars($settings);
+    }
 
 echo '<HTML>
 <HEAD>
@@ -135,6 +139,7 @@ echo '
 </HEAD>
 <body';
 if ($is_public_area) echo ' class="orsee-public"';
+if ($is_public_area && $public_tailwind_style_vars) echo ' style="'.$public_tailwind_style_vars.'"';
 if (isset($color['body_text'])) echo ' text="'.$color['body_text'].'"';
 if (isset($color['body_link'])) echo ' link="'.$color['body_link'].'"';
 if (isset($color['body_vlink'])) echo ' vlink="'.$color['body_vlink'].'"';
@@ -171,6 +176,49 @@ function html__public_style_asset_src($settings,$asset_name) {
     }
 
     return '';
+}
+
+function html__get_public_tailwind_style_vars($settings) {
+    global $system__colors;
+
+    $keys=array(
+        'public_tailwind_header_background' => '--or-public-header-bg',
+        'public_tailwind_header_text' => '--or-public-header-text',
+        'public_tailwind_page_background' => '--or-public-page-bg',
+        'public_tailwind_page_title' => '--or-public-page-title',
+        'public_tailwind_body_text' => '--or-public-body-text',
+        'public_tailwind_content_background' => '--or-public-content-bg',
+        'public_tailwind_primary_button_background' => '--or-public-button-primary-bg',
+        'public_tailwind_primary_button_text' => '--or-public-button-primary-text',
+        'public_tailwind_secondary_button_background' => '--or-public-button-secondary-bg',
+        'public_tailwind_secondary_button_text' => '--or-public-button-secondary-text',
+        'public_tailwind_footer_background' => '--or-public-footer-bg',
+        'public_tailwind_footer_text' => '--or-public-footer-text'
+    );
+
+    $values=array();
+    foreach ($system__colors as $entry) {
+        if (!isset($entry['color_name']) || !isset($keys[$entry['color_name']])) continue;
+        $values[$entry['color_name']]=$entry['default_value'];
+    }
+
+    $style=(isset($settings['orsee_public_style']) && $settings['orsee_public_style']) ? $settings['orsee_public_style'] : 'orsee';
+    $query="select option_name, option_value from ".table('options')."
+            where option_type='color'
+            and option_style= :style";
+    $result=or_query($query,array(':style'=>$style));
+    while ($line=pdo_fetch_assoc($result)) {
+        if (isset($keys[$line['option_name']]) && trim($line['option_value'])!=='') {
+            $values[$line['option_name']]=trim($line['option_value']);
+        }
+    }
+
+    $css=array();
+    foreach ($keys as $option_name => $css_var) {
+        if (!isset($values[$option_name]) || $values[$option_name]==='') continue;
+        $css[]=$css_var.': '.$values[$option_name];
+    }
+    return implode('; ', $css);
 }
 
 function html__show_style_header($area='public',$title="") {

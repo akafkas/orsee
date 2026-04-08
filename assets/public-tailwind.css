@@ -2,22 +2,23 @@
 
 @theme {
   --or-public-shell-max: 1120px;
-  --color-or-bg: #f4f5f7;
-  --color-or-bg-soft: #eceff3;
-  --color-or-ink: #1b1f26;
-  --color-or-ink-strong: #101419;
-  --color-or-muted: #67707d;
+  --color-or-bg: var(--or-public-page-bg, #f4f5f7);
+  --color-or-bg-soft: var(--or-public-page-bg, #eceff3);
+  --color-or-ink: var(--or-public-body-text, #1b1f26);
+  --color-or-ink-strong: var(--or-public-page-title, #101419);
+  --color-or-muted: var(--or-public-header-text, #67707d);
   --color-or-line: #dde2e8;
-  --color-or-surface: #ffffff;
-  --color-or-surface-soft: #f8fafc;
-  --color-or-surface-strong: #eef2f6;
-  --color-or-brand: #232a33;
-  --color-or-brand-strong: #151b22;
-  --color-or-brand-soft: #eef2f6;
+  --color-or-surface: var(--or-public-content-bg, #ffffff);
+  --color-or-surface-soft: var(--or-public-button-secondary-bg, #f8fafc);
+  --color-or-surface-strong: var(--or-public-button-secondary-bg, #eef2f6);
+  --color-or-brand: var(--or-public-button-primary-bg, #232a33);
+  --color-or-brand-strong: var(--or-public-button-primary-bg, #151b22);
+  --color-or-brand-soft: var(--or-public-button-secondary-bg, #eef2f6);
   --color-or-focus: rgba(35, 42, 51, 0.22);
   --color-or-success: #2f6b57;
   --color-or-danger: #8a4b47;
-  --color-or-night: #0f141a;
+  --color-or-night: var(--or-public-page-title, #0f141a);
+  --color-or-link: var(--or-public-button-primary-bg, #232a33);
   --shadow-or-card: 0 10px 28px rgba(16, 20, 25, 0.08);
   --shadow-or-soft: 0 2px 10px rgba(16, 20, 25, 0.04);
   --radius-or-card: 1.35rem;
@@ -33,12 +34,12 @@
   }
 
   body.orsee-public a {
-    color: var(--color-or-brand);
+    color: var(--color-or-link);
     transition: color 160ms ease;
   }
 
   body.orsee-public a:hover {
-    color: var(--color-or-brand-strong);
+    color: var(--color-or-ink-strong);
   }
 
   body.orsee-public img {
@@ -66,8 +67,9 @@
     top: 0;
     z-index: 40;
     backdrop-filter: blur(18px);
-    background: rgba(244, 245, 247, 0.9);
+    background: var(--or-public-header-bg, rgba(244, 245, 247, 0.9));
     border-bottom: 1px solid rgba(27, 31, 38, 0.08);
+    color: var(--or-public-header-text, var(--color-or-muted));
   }
 
   body.orsee-public .or-public-header-inner,
@@ -91,7 +93,7 @@
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
-    color: inherit;
+    color: var(--or-public-header-text, inherit);
     min-width: 0;
     flex: 0 1 auto;
   }
@@ -154,8 +156,8 @@
     min-width: 0;
     border: 1px solid rgba(21, 27, 34, 0.12);
     border-radius: 0.95rem;
-    background: var(--color-or-brand-strong);
-    color: #fff;
+    background: var(--or-public-button-primary-bg, var(--color-or-brand-strong));
+    color: var(--or-public-button-primary-text, #fff);
     padding: 0.75rem 1rem;
     box-shadow: var(--shadow-or-soft);
     text-align: center;
@@ -251,7 +253,7 @@
     padding: 0.55rem;
     border-radius: 1rem;
     border: 1px solid rgba(21, 27, 34, 0.08);
-    background: rgba(255, 255, 255, 0.98);
+    background: var(--color-or-surface);
     box-shadow: var(--shadow-or-card);
     box-sizing: border-box;
     white-space: nowrap;
@@ -295,7 +297,7 @@
     padding: 0.8rem 1rem;
     border-radius: 0.85rem;
     text-decoration: none;
-    color: var(--color-or-muted);
+    color: var(--or-public-header-text, var(--color-or-muted));
     font-weight: 600;
     transition: all 160ms ease;
   }
@@ -303,8 +305,8 @@
   body.orsee-public .or-public-nav-link:hover,
   body.orsee-public .or-public-nav-link:focus-visible,
   body.orsee-public .or-public-nav-link.is-active {
-    color: var(--color-or-night);
-    background: rgba(35, 42, 51, 0.07);
+    color: var(--or-public-header-text, var(--color-or-night));
+    background: var(--or-public-button-secondary-bg, rgba(35, 42, 51, 0.07));
   }
 
   body.orsee-public .or-public-nav-icon {
@@ -411,7 +413,7 @@
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    background: rgba(255, 255, 255, 0.98);
+    background: var(--color-or-surface);
     border: 1px solid rgba(27, 31, 38, 0.08);
     box-shadow: var(--shadow-or-card);
     border-radius: var(--radius-or-card);
@@ -492,7 +494,7 @@
     height: 100%;
     padding: 1.45rem;
     border-radius: calc(var(--radius-or-card) - 0.25rem);
-    background: linear-gradient(180deg, #ffffff 0%, #fafbfd 100%);
+    background: var(--color-or-surface);
     color: var(--color-or-ink);
     border: 1px solid rgba(27, 31, 38, 0.08);
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
@@ -544,9 +546,9 @@
     -webkit-appearance: none;
     border: 1px solid rgba(21, 27, 34, 0.08);
     border-radius: 0.95rem;
-    background: var(--color-or-brand) !important;
+    background: var(--or-public-button-primary-bg, var(--color-or-brand)) !important;
     background-image: none !important;
-    color: #fff !important;
+    color: var(--or-public-button-primary-text, #fff) !important;
     text-decoration: none;
     font-family: inherit !important;
     font-size: 1rem !important;
@@ -607,7 +609,7 @@
   body.orsee-public input.button:hover,
   body.orsee-public a.button:hover {
     transform: translateY(-1px);
-    background: var(--color-or-brand-strong);
+    background: var(--or-public-button-primary-bg, var(--color-or-brand-strong));
     box-shadow: 0 10px 20px rgba(31, 39, 48, 0.12);
   }
 
@@ -624,9 +626,9 @@
   body.orsee-public .button.button-quiet,
   body.orsee-public a.button.button-quiet,
   body.orsee-public input.button.button-quiet {
-    background: var(--color-or-surface) !important;
+    background: var(--or-public-button-secondary-bg, var(--color-or-surface)) !important;
     background-image: none !important;
-    color: var(--color-or-brand-strong) !important;
+    color: var(--or-public-button-secondary-text, var(--color-or-brand-strong)) !important;
     border-color: rgba(31, 39, 48, 0.12);
     box-shadow: none !important;
   }
@@ -637,8 +639,8 @@
   body.orsee-public .button.button-quiet:hover,
   body.orsee-public a.button.button-quiet:hover,
   body.orsee-public input.button.button-quiet:hover {
-    background: var(--color-or-brand-soft) !important;
-    color: var(--color-or-brand-strong) !important;
+    background: var(--or-public-button-secondary-bg, var(--color-or-brand-soft)) !important;
+    color: var(--or-public-button-secondary-text, var(--color-or-brand-strong)) !important;
   }
 
   body.orsee-public .or-public-auth-layout,
@@ -656,7 +658,7 @@
 
   body.orsee-public .or-public-auth-card,
   body.orsee-public .or-public-form-card {
-    background: rgba(255, 255, 255, 0.94);
+    background: var(--color-or-surface);
     border: 1px solid rgba(28, 35, 43, 0.08);
     border-radius: var(--radius-or-card);
     box-shadow: var(--shadow-or-card);
@@ -879,8 +881,8 @@
 
   body.orsee-public .or-public-site-footer {
     border-top: 1px solid rgba(28, 35, 43, 0.08);
-    background: rgba(20, 25, 31, 0.98);
-    color: rgba(248, 247, 244, 0.74);
+    background: var(--or-public-footer-bg, rgba(20, 25, 31, 0.98));
+    color: var(--or-public-footer-text, rgba(248, 247, 244, 0.74));
     margin-top: auto;
   }
 
@@ -899,7 +901,7 @@
   }
 
   body.orsee-public .or-public-site-footer-mark {
-    color: rgba(248, 247, 244, 0.9);
+    color: var(--or-public-footer-text, rgba(248, 247, 244, 0.9));
     font-size: 0.95rem;
     font-weight: 500;
     line-height: 1.6;
@@ -918,7 +920,7 @@
   }
 
   body.orsee-public .or-public-site-footer-mark a {
-    color: #fff;
+    color: inherit;
     font-weight: 700;
     text-decoration: none;
   }
@@ -927,16 +929,8 @@
     text-decoration: underline;
   }
 
-  body.orsee-public .or-public-site-footer-mark {
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: #fff;
-    font-size: 0.76rem;
-  }
-
   body.orsee-public .or-public-site-footer-link {
-    color: #fff;
+    color: inherit;
     font-weight: 600;
   }
 
@@ -1194,8 +1188,8 @@
       max-width: calc(100dvw - 1.5rem);
       padding: 0.9rem;
       border-radius: 1.2rem;
-      background: rgba(21, 27, 34, 0.98);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: var(--or-public-header-bg, rgba(21, 27, 34, 0.98));
+      border: 1px solid rgba(27, 31, 38, 0.08);
       box-shadow: var(--shadow-or-card);
       box-sizing: border-box;
       overflow-x: hidden;
@@ -1238,15 +1232,15 @@
     body.orsee-public .or-public-nav-link {
       border-radius: 0.95rem;
       width: 100%;
-      color: rgba(248, 247, 244, 0.78);
+      color: var(--or-public-header-text, var(--color-or-ink));
       background: transparent;
     }
 
     body.orsee-public .or-public-nav-link:hover,
     body.orsee-public .or-public-nav-link:focus-visible,
     body.orsee-public .or-public-nav-link.is-active {
-      color: #fff;
-      background: rgba(255, 255, 255, 0.08);
+      color: var(--or-public-header-text, var(--color-or-ink));
+      background: var(--or-public-button-secondary-bg, rgba(255, 255, 255, 0.08));
     }
 
     body.orsee-public .or-public-page-title {

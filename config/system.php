@@ -1504,6 +1504,83 @@ $system__colors[]=array(
 'default_value'=>'#008000'
 );
 
+$system__colors[]=array('type'=>'line');
+
+$system__colors[]=array('type'=>'comment',
+            'text'=>'Public Tailwind colors');
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_header_background',
+'option_text'=>'Header background color',
+'default_value'=>'#f4f5f7'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_header_text',
+'option_text'=>'Header text color',
+'default_value'=>'#67707d'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_page_background',
+'option_text'=>'Page background color',
+'default_value'=>'#f4f5f7'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_page_title',
+'option_text'=>'Page title color',
+'default_value'=>'#101419'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_body_text',
+'option_text'=>'Body text color',
+'default_value'=>'#1b1f26'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_content_background',
+'option_text'=>'Content background color',
+'default_value'=>'#ffffff'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_primary_button_background',
+'option_text'=>'Primary button background color',
+'default_value'=>'#232a33'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_primary_button_text',
+'option_text'=>'Primary button text color',
+'default_value'=>'#ffffff'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_secondary_button_background',
+'option_text'=>'Secondary button background color',
+'default_value'=>'#ffffff'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_secondary_button_text',
+'option_text'=>'Secondary button text color',
+'default_value'=>'#151b22'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_footer_background',
+'option_text'=>'Footer background color',
+'default_value'=>'#14191f'
+);
+
+$system__colors[]=array(
+'color_name'=>'public_tailwind_footer_text',
+'option_text'=>'Footer text color',
+'default_value'=>'#f8f7f4'
+);
+
 
 $system__colors[]=array('type'=>'line');
 

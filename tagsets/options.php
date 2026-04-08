@@ -128,7 +128,9 @@ function options__show_color_option($o) {
         else $picker=' class="colorpickerinput" style="border-color: '.$o['value'].';" ';
         $field='<INPUT type="text" '.$picker.' name="'.$o['submitvarname'].'" size="'.$size.'" maxlength="'.$maxlength.'" value="'.$o['value'].'">';
 
-        $done=option__display_option($o['color_name'],$field);
+        if (isset($o['option_text']) && $o['option_text']) $label=$o['option_text'];
+        else $label=$o['color_name'];
+        $done=option__display_option($label,$field);
     }
 }
 
