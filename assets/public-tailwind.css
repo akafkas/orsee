@@ -1121,6 +1121,14 @@
     border-bottom-right-radius: 0.8rem;
   }
 
+  body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr:first-child > td:first-child {
+    border-top-left-radius: 0.8rem;
+  }
+
+  body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr:first-child > td:last-child {
+    border-top-right-radius: 0.8rem;
+  }
+
   body.orsee-public .or-public-calendar-shell .calendarCellHead {
     background: var(--color-or-surface-soft) !important;
     color: var(--color-or-muted);
