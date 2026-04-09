@@ -1029,6 +1029,26 @@
     padding: 0.8rem 0.95rem;
   }
 
+  body.orsee-public .or-calendar-event {
+    display: grid;
+    gap: 0.22rem;
+  }
+
+  body.orsee-public .or-calendar-event-time {
+    font-size: 0.76rem;
+    line-height: 1.2;
+    font-weight: 800;
+    letter-spacing: 0.01em;
+    color: inherit;
+    white-space: nowrap;
+  }
+
+  body.orsee-public .or-calendar-event-location {
+    font-size: 0.72rem;
+    line-height: 1.2;
+    color: var(--color-or-muted);
+  }
+
   body.orsee-public .or-public-calendar-nav-bottom {
     display: none;
   }
@@ -1050,6 +1070,8 @@
   body.orsee-public .or-public-calendar-shell .calendarTable {
     width: 100% !important;
     table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0;
   }
 
   body.orsee-public .or-public-calendar-shell .calendarTable thead {
@@ -1067,17 +1089,36 @@
     height: auto;
     padding: 0.85rem 1rem;
     text-align: center;
+    border-radius: 0.9rem 0.9rem 0 0;
   }
 
   body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr > td,
   body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr .calendarCellRealDate {
     border: 1px solid var(--color-or-line);
-    height: 8.5rem;
+    height: 10rem;
     background: var(--color-or-surface);
+    vertical-align: top;
+    overflow: visible;
   }
 
   body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr > td.today {
     border-color: var(--color-or-brand);
+  }
+
+  body.orsee-public .or-public-calendar-shell .calendarTable > thead > tr:nth-child(2) > th:first-child {
+    border-bottom-left-radius: 0.7rem;
+  }
+
+  body.orsee-public .or-public-calendar-shell .calendarTable > thead > tr:nth-child(2) > th:last-child {
+    border-bottom-right-radius: 0.7rem;
+  }
+
+  body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr:last-child > td:first-child {
+    border-bottom-left-radius: 0.8rem;
+  }
+
+  body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr:last-child > td:last-child {
+    border-bottom-right-radius: 0.8rem;
   }
 
   body.orsee-public .or-public-calendar-shell .calendarCellHead {
@@ -1085,12 +1126,26 @@
     color: var(--color-or-muted);
     font-weight: 800;
     min-height: 1.9rem;
+    margin: 0.28rem 0.28rem 0;
     padding: 0.35rem 0.6rem !important;
+    border-radius: 0.7rem;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
   }
 
-  body.orsee-public .or-public-calendar-shell .calendarCellContent {
-    margin: 0.35rem !important;
-    padding: 0.45rem 0.6rem !important;
+  body.orsee-public .or-calendar-event-wrap {
+    margin: 0.28rem auto;
+    width: auto;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  body.orsee-public .or-public-calendar-shell .or-calendar-event-card {
+    margin: 0 auto !important;
+    width: calc(100% - 0.56rem);
+    max-width: calc(100% - 0.56rem);
+    min-height: 0;
   }
 
   body.orsee-public .or-public-calendar-shell .calendarCellContent span,
@@ -1102,9 +1157,106 @@
 
   body.orsee-public .or-public-calendar-shell .calendarCellContentTitle,
   body.orsee-public .or-public-calendar-mobile-title {
-    font-size: 0.9rem;
+    font-size: 0.84rem;
     font-weight: 700;
     color: var(--or-public-page-title, var(--color-or-night));
+    line-height: 1.2;
+  }
+
+  body.orsee-public .or-calendar-event-location {
+    color: var(--color-or-muted);
+    line-height: 1.2;
+  }
+
+  body.orsee-public .or-public-calendar-shell .or-calendar-event-status,
+  body.orsee-public .or-public-calendar-mobile .or-calendar-event-status {
+    margin-top: 0.12rem;
+    justify-self: start;
+  }
+
+  body.orsee-public .or-public-calendar-shell .calendar-status-label,
+  body.orsee-public .or-public-calendar-mobile .calendar-status-label {
+    padding: 0.12rem 0.34rem;
+    font-size: 0.58rem;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    max-width: 100%;
+  }
+
+  body.orsee-public .or-calendar-day-more {
+    display: none;
+    margin: 0.18rem 0.35rem 0;
+    padding: 0.08rem 0.18rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--color-or-muted);
+  }
+
+  body.orsee-public .or-calendar-day-more--desktop {
+    display: block;
+  }
+
+  body.orsee-public .or-calendar-day-more--tablet {
+    display: none;
+  }
+
+  body.orsee-public .or-public-calendar-shell .calendarCellRealDate > article.or-calendar-event-wrap:nth-of-type(n + 4) {
+    display: none;
+  }
+
+  body.orsee-public .or-calendar-event-detail {
+    position: relative;
+    margin-top: 0;
+    inline-size: auto;
+    display: grid;
+    gap: 0.42rem;
+    padding: 0.75rem 0.8rem;
+    border: 1px solid rgba(21, 27, 34, 0.1);
+    border-radius: 0.95rem;
+    background: var(--or-public-content-bg, var(--color-or-surface)) !important;
+    box-shadow: 0 16px 34px rgba(16, 20, 25, 0.16);
+    color: var(--color-or-ink);
+    box-sizing: border-box;
+    opacity: 1;
+  }
+
+  body.orsee-public .or-calendar-event-detail.calendar-status-open,
+  body.orsee-public .or-calendar-event-detail.calendar-status-full,
+  body.orsee-public .or-calendar-event-detail.calendar-status-neutral {
+    background: var(--or-public-content-bg, var(--color-or-surface)) !important;
+  }
+
+  body.orsee-public .or-calendar-event-detail-time {
+    font-size: 0.78rem;
+    font-weight: 800;
+    line-height: 1.25;
+    color: var(--color-or-ink-strong);
+  }
+
+  body.orsee-public .or-calendar-event-detail-location {
+    font-size: 0.78rem;
+    line-height: 1.4;
+    color: var(--color-or-muted);
+  }
+
+  body.orsee-public .or-calendar-event-detail-title {
+    font-size: 0.92rem;
+    line-height: 1.35;
+    font-weight: 700;
+    color: var(--or-public-page-title, var(--color-or-night));
+    overflow-wrap: anywhere;
+  }
+
+  body.orsee-public .or-calendar-event-detail-title a {
+    color: inherit;
+    text-decoration: underline;
+    text-decoration-thickness: 1.2px;
+    text-underline-offset: 0.12em;
+  }
+
+  body.orsee-public .or-calendar-event-detail-status {
+    justify-self: start;
   }
 
   body.orsee-public .calendar-status-open {
@@ -1251,6 +1403,45 @@
 
     body.orsee-public .or-public-page-title {
       font-size: 2.1rem;
+    }
+
+    body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr > td,
+    body.orsee-public .or-public-calendar-shell .calendarTable > tbody > tr .calendarCellRealDate {
+      height: 8.9rem;
+    }
+
+    body.orsee-public .or-public-calendar-shell .or-calendar-event-card {
+      margin: 0.22rem !important;
+      padding: 0.6rem 0.68rem !important;
+    }
+
+    body.orsee-public .or-public-calendar-shell .or-calendar-event-time {
+      font-size: 0.72rem;
+    }
+
+    body.orsee-public .or-public-calendar-shell .or-calendar-event-location {
+      display: none;
+    }
+
+    body.orsee-public .or-public-calendar-shell .or-calendar-event-title {
+      font-size: 0.78rem;
+    }
+
+    body.orsee-public .or-public-calendar-shell .calendar-status-label {
+      padding: 0.1rem 0.3rem;
+      font-size: 0.55rem;
+    }
+
+    body.orsee-public .or-public-calendar-shell .calendarCellRealDate > article.or-calendar-event-wrap:nth-of-type(n + 3) {
+      display: none;
+    }
+
+    body.orsee-public .or-public-calendar-shell .or-calendar-day-more--desktop {
+      display: none;
+    }
+
+    body.orsee-public .or-public-calendar-shell .or-calendar-day-more--tablet {
+      display: block;
     }
   }
 

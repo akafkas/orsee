@@ -1,4 +1,8 @@
 (function () {
+    function isMobile() {
+        return window.matchMedia("(max-width: 1024px)").matches;
+    }
+
     function closeMenu(toggle, nav, backdrop) {
         toggle.setAttribute("aria-expanded", "false");
         nav.setAttribute("hidden", "hidden");
@@ -11,10 +15,6 @@
         nav.removeAttribute("hidden");
         if (backdrop) backdrop.removeAttribute("hidden");
         document.body.classList.add("or-public-menu-open");
-    }
-
-    function isMobile() {
-        return window.matchMedia("(max-width: 1024px)").matches;
     }
 
     function initPublicMenu() {

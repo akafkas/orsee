@@ -302,119 +302,116 @@ function calendar__display_calendar($admin = false){
     if(isset($color['calendar_day_background'])) $calendar_day_background = $color['calendar_day_background'];
     $calendar_month_background =  "black";
     if(isset($color['calendar_month_background'])) $calendar_month_background = $color['calendar_month_background'];
-    echo '
-    <style>
-        #calendarContainer {
-            width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-        }
-        .calendarTable {
-            border: 0px;
-            border-collapse: separate;
-        }
+    if ($admin) {
+        echo '
+        <style>
+            #calendarContainer {
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .calendarTable {
+                border: 0px;
+                border-collapse: separate;
+            }
 
-        /* head of calendar */
-        .calendarTable thead  {
-            background: #232a33;
-            color: #ffffff;
-        }
-        .calendarTable>thead>tr>th {
-            border: 0;
-            border-bottom: 1px solid rgba(255,255,255,0.12);
-            height: 20px;
-            text-align: right;
-            font-weight: 600;
-            padding: 0px 10px 0px 0px;
-        }
-        .calendarTable>thead>tr>th.monthTag{
-            font-size: 13pt;
-            height: 30px;
-        }
-        /* round corners */
-        .calendarTable>thead>tr:first-child>th:only-child {
-            -moz-border-radius: 10px 10px 0px 0px;
-            -webkit-border-radius: 10px 10px 0px 0px;
-            border-radius: 10px 10px 0px 0px;
-        }
+            /* head of calendar */
+            .calendarTable thead  {
+                background: #232a33;
+                color: #ffffff;
+            }
+            .calendarTable>thead>tr>th {
+                border: 0;
+                border-bottom: 1px solid rgba(255,255,255,0.12);
+                height: 20px;
+                text-align: right;
+                font-weight: 600;
+                padding: 0px 10px 0px 0px;
+            }
+            .calendarTable>thead>tr>th.monthTag{
+                font-size: 13pt;
+                height: 30px;
+            }
+            /* round corners */
+            .calendarTable>thead>tr:first-child>th:only-child {
+                -moz-border-radius: 10px 10px 0px 0px;
+                -webkit-border-radius: 10px 10px 0px 0px;
+                border-radius: 10px 10px 0px 0px;
+            }
 
-        /* calendar rows and cells*/
-        .calendarTable>tbody>tr {
-        }
-        .calendarTable>tbody>tr>td {
-            border: 1px solid #dde2e8;
-            padding: 0;
-            margin: 0;
-            height: 100px;
-            min-width: 3%;
-            width: 3%;
-            max-width: 30%;
-            text-align: left;
-            vertical-align: top;
-            background: #ffffff;
-        }
-        .calendarTable>tbody>tr .calendarCellRealDate{
-            border: 1px solid #dde2e8;
-        }
-        .calendarTable>tbody>tr>td .calendarCellHead {
-            padding: 0;
-            padding-left: 3px;
-            padding-right: 10px;
-            margin: 0;
-            background: #f8fafc;
-            color: #67707d;
-            text-align: right;
-            height: 17px;
-            font-weight: bold;
-        }
-        .calendarTable>tbody>tr>td .calendarCellContent {
-            padding: 0;
-            padding-top: 3px;
-            padding-bottom: 3px;
-            padding-left: 6px;
-            padding-right: 15px;
-            position: relative;
-            margin-left: 5px;
-            margin-right: 5px;
-            margin-top: 3px;
-            margin-bottom: 3px;
-            background: #f8fafc;
-            border: 1px solid rgba(27, 31, 38, 0.08);
-            -moz-border-radius: 12px;
-            -webkit-border-radius: 12px;
-            border-radius: 12px;
-        }
-        .calendarTable>tbody>tr>td .calendarCellContent .calendarCellContentTitle {
-            display: block;
-        }
-        .calendarTable>tbody>tr>td .calendarCellContent span {
-            display: block;
-        }
+            /* calendar rows and cells*/
+            .calendarTable>tbody>tr {
+            }
+            .calendarTable>tbody>tr>td {
+                border: 1px solid #dde2e8;
+                padding: 0;
+                margin: 0;
+                height: 100px;
+                min-width: 3%;
+                width: 3%;
+                max-width: 30%;
+                text-align: left;
+                vertical-align: top;
+                background: #ffffff;
+            }
+            .calendarTable>tbody>tr .calendarCellRealDate{
+                border: 1px solid #dde2e8;
+            }
+            .calendarTable>tbody>tr>td .calendarCellHead {
+                padding: 0;
+                padding-left: 3px;
+                padding-right: 10px;
+                margin: 0;
+                background: #f8fafc;
+                color: #67707d;
+                text-align: right;
+                height: 17px;
+                font-weight: bold;
+            }
+            .calendarTable>tbody>tr>td .calendarCellContent {
+                padding: 0;
+                padding-top: 3px;
+                padding-bottom: 3px;
+                padding-left: 6px;
+                padding-right: 15px;
+                position: relative;
+                margin-left: 5px;
+                margin-right: 5px;
+                margin-top: 3px;
+                margin-bottom: 3px;
+                background: #f8fafc;
+                border: 1px solid rgba(27, 31, 38, 0.08);
+                -moz-border-radius: 12px;
+                -webkit-border-radius: 12px;
+                border-radius: 12px;
+            }
+            .calendarTable>tbody>tr>td .calendarCellContent .calendarCellContentTitle {
+                display: block;
+            }
+            .calendarTable>tbody>tr>td .calendarCellContent span {
+                display: block;
+            }
 
-        /* round corners */
-        .calendarTable>tbody>tr:last-child>td:first-child {
-            -moz-border-radius: 0px 0px 0px 10px;
-            -webkit-border-radius: 0px 0px 0px 10px;
-            border-radius: 0px 0px 0px 10px;
-        }
+            /* round corners */
+            .calendarTable>tbody>tr:last-child>td:first-child {
+                -moz-border-radius: 0px 0px 0px 10px;
+                -webkit-border-radius: 0px 0px 0px 10px;
+                border-radius: 0px 0px 0px 10px;
+            }
 
-        .calendarTable>tbody>tr:last-child>td:last-child {
-             -moz-border-radius: 0px 0px 10px 0px;
-             -webkit-border-radius: 0px 0px 10px 0px;
-             border-radius: 0px 0px 10px 0px;
-        }
+            .calendarTable>tbody>tr:last-child>td:last-child {
+                 -moz-border-radius: 0px 0px 10px 0px;
+                 -webkit-border-radius: 0px 0px 10px 0px;
+                 border-radius: 0px 0px 10px 0px;
+            }
 
-        /* highlight today cell */
-        .calendarTable>tbody>tr>td.today {
-            border: 2px solid #232a33;
-        }
-
-        .or-public-agenda {
-            display: none;
-        }
-
-    </style>
-    ';
+            /* highlight today cell */
+            .calendarTable>tbody>tr>td.today {
+                border: 2px solid #232a33;
+            }
+        </style>
+        ';
+    }
 
     $statusdata = array("not_enough_participants" => array(
             "color" => ($admin) ? $color['session_not_enough_participants'] : $color['session_public_free_places'],
@@ -510,14 +507,14 @@ function calendar__display_calendar($admin = false){
                     $title='<a href="'.$item['title_link'].'">'.$title.'</a>';
                 }
                 $mobile_variant=calendar__public_variant($item);
-                echo '<article class="or-public-calendar-mobile-session calendar-status-'.$mobile_variant.'">';
-                echo '<div class="or-public-calendar-mobile-meta">'.$item['display_time'].'</div>';
-                echo '<div class="or-public-calendar-mobile-title">'.$title.'</div>';
+                echo '<article class="or-public-calendar-mobile-session or-calendar-event calendar-status-'.$mobile_variant.'">';
+                echo '<div class="or-public-calendar-mobile-meta or-calendar-event-time">'.$item['display_time'].'</div>';
+                echo '<div class="or-public-calendar-mobile-title or-calendar-event-title">'.$title.'</div>';
                 if (isset($item['location']) && $item['location']) {
-                    echo '<div class="or-public-calendar-mobile-meta">'.$item['location'].'</div>';
+                    echo '<div class="or-public-calendar-mobile-meta or-calendar-event-location">'.$item['location'].'</div>';
                 }
                 if ($item['type'] == "experiment_session" && isset($statusdata[$item['status']])) {
-                    echo '<div class="'.calendar__public_status_label_class($mobile_variant).'">'.$statusdata[$item['status']]['message'].'</div>';
+                    echo '<div class="or-calendar-event-status '.calendar__public_status_label_class($mobile_variant).'">'.$statusdata[$item['status']]['message'].'</div>';
                 }
                 echo '</article>';
             }
@@ -569,27 +566,42 @@ function calendar__display_calendar($admin = false){
                     echo $weeks[$i2][$i3];
                     echo '</div>';
                     if(isset($results[$today])){
-                        foreach($results[$today] as $item){
-                            $title = $item['title'];
+                        $public_day_items=$results[$today];
+                        $public_day_item_count=count($public_day_items);
+                        foreach($public_day_items as $item){
+                            $title_text = $item['title'];
+                            $title = $title_text;
                             if(isset($item['title_link'])){
-                                $title = '<a href="' . $item['title_link'] . '">' . $title . '</a>';
+                                $title = '<a href="' . $item['title_link'] . '">' . $title_text . '</a>';
                             }
                             $public_variant=calendar__public_variant($item);
                             if ($admin) {
                                 echo '<div style="background: ' . $item['color'] . ';" class="calendarCellContent">';
                             } else {
-                                echo '<div class="calendarCellContent calendar-status-'.$public_variant.'">';
+                                echo '<article class="or-calendar-event-wrap or-calendar-event-card or-calendar-event-detail calendar-status-'.$public_variant.'">';
                             }
-                            echo '<span style="font-weight: bold;">';
-                            echo $item['display_time'];
-                            echo '</span>';
-                            echo '<span style="font-size: 11;">';
-                            echo $item['location'];
-                            echo '</span>';
-                            if($admin || $settings['public_calendar_hide_exp_name']!='y'){
-                                echo '<div class="calendarCellContentTitle">' . $title . '</div>';
+                            if ($admin) {
+                                echo '<span style="font-weight: bold;">';
+                                echo $item['display_time'];
+                                echo '</span>';
+                                echo '<span style="font-size: 11;">';
+                                echo $item['location'];
+                                echo '</span>';
+                                if($settings['public_calendar_hide_exp_name']!='y'){
+                                    echo '<div class="calendarCellContentTitle">' . $title . '</div>';
+                                } else {
+                                    echo '<div class="calendarCellContentTitle">'.lang('calendar_experiment_session').'</div>';
+                                }
                             } else {
-                                echo '<div class="calendarCellContentTitle">'.lang('calendar_experiment_session').'</div>';
+                                echo '<div class="or-calendar-event-detail-time">'.$item['display_time'].'</div>';
+                                if (isset($item['location']) && $item['location']) {
+                                    echo '<div class="or-calendar-event-detail-location">'.$item['location'].'</div>';
+                                }
+                                if($settings['public_calendar_hide_exp_name']!='y'){
+                                    echo '<div class="or-calendar-event-detail-title">' . $title . '</div>';
+                                } else {
+                                    echo '<div class="or-calendar-event-detail-title">'.lang('calendar_experiment_session').'</div>';
+                                }
                             }
 
                             if($admin){
@@ -608,7 +620,7 @@ function calendar__display_calendar($admin = false){
                                 if ($admin) {
                                     echo '<span style="color: ' . $statusdata[$item['status']]['color'] . ';">';
                                 } else {
-                                    echo '<span class="'.calendar__public_status_label_class($public_variant).'">';
+                                    echo '<span class="or-calendar-event-status '.calendar__public_status_label_class($public_variant).'">';
                                 }
 
                                     if($admin){
@@ -623,7 +635,19 @@ function calendar__display_calendar($admin = false){
                                     echo '</span>';
                                 }
                             }
-                            echo '</div>';
+                            if ($admin) {
+                                echo '</div>';
+                            } else {
+                                echo '</article>';
+                            }
+                        }
+                        if (!$admin) {
+                            if ($public_day_item_count > 3) {
+                                echo '<div class="or-calendar-day-more or-calendar-day-more--desktop">+'.($public_day_item_count-3).' more</div>';
+                            }
+                            if ($public_day_item_count > 2) {
+                                echo '<div class="or-calendar-day-more or-calendar-day-more--tablet">+'.($public_day_item_count-2).' more</div>';
+                            }
                         }
                     }
                 } else {
