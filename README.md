@@ -28,3 +28,10 @@ Useful links
 * [ORSEE website](http://www.orsee.org/)
 * [ORSEE Wiki](http://www.orsee.org/wiki)
 * [Legacy Sourceforge project (not active anymore)](http://sourceforge.net/projects/orsee)
+
+To run and with docker use:
+------------
+```
+docker compose -f docker-compose.dev.yml up --build
+```
+
